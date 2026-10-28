@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="nb">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kunder | ALFRED MASKIN</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/storage.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+<body data-page="customers">
+    <header class="app-header">
+        <div class="header-inner">
+            <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
+            <div>
+                <p class="eyebrow">ALFRED MASKIN</p>
+                <p class="app-title">Arbeidslogg</p>
+            </div>
+            <span class="demo-badge">DEMO</span>
+        </div>
+    </header>
+
+    <nav class="main-nav" aria-label="Hovedmeny">
+        <a href="index.html">Runder</a>
+        <a href="kunder.html" aria-current="page">Kunder</a>
+        <a href="historikk.html">Arbeidslogg</a>
+        <a href="data.html">Data</a>
+    </nav>
+
+    <main>
+        <p class="prototype-note">Kun fiktive testdata. Lagres i denne nettleseren.</p>
+        <p id="feedback" role="status" aria-live="polite" hidden></p>
+
+        <div id="app">
+            <div class="page-heading">
+                <h1>Kunder</h1>
+                <p>Kunder, arbeidsadresser og instruksjoner.</p>
+            </div>
+
+            <div class="toolbar">
+                <a class="button primary" href="kunde.html">Ny kunde</a>
+            </div>
+
+            <div class="filters">
+                <label>
+                    Søk etter navn eller adresse
+                    <input id="customer-search" type="search" placeholder="Søk …">
+                </label>
+                <label class="checkbox">
+                    <input id="show-archived" type="checkbox">
+                    Vis arkiverte
+                </label>
+            </div>
+
+            <div id="customer-results" class="stack"></div>
+        </div>
+
+        <noscript>JavaScript må være på for å lese og lagre demodata. Menylenkene fungerer uten.</noscript>
+    </main>
+</body>
+</html>
