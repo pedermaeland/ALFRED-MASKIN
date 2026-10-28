@@ -1,0 +1,57 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #192d25;
+  background: #f2f5f2;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.business-name {
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.prototype-note {
+  color: #4e6056;
+}
+
+section {
+  margin-top: 2rem;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+ol {
+  padding-left: 1.75rem;
+}
+
+li {
+  margin-bottom: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #ccd8cf;
+  border-radius: 0.75rem;
+  background: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
