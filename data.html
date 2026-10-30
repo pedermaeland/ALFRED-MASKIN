@@ -1,85 +1,66 @@
 <!doctype html>
 <html lang="nb">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data og sikkerhetskopi | ALFRED MASKIN</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="js/data.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/app.js" defer></script>
-</head>
-<body data-page="data">
-    <header class="app-header">
-        <div class="header-inner">
-            <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
-            <div>
-                <p class="eyebrow">ALFRED MASKIN</p>
-                <p class="app-title">Arbeidslogg</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Data og sikkerhetskopi | ALFRED MASKIN</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="app-header">
+            <div class="header-inner">
+                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
+                <div>
+                    <p class="eyebrow">ALFRED MASKIN</p>
+                    <p class="app-title">Logg</p>
+                </div>
+                <span class="demo-badge">UTKAST</span>
             </div>
-            <span class="demo-badge">DEMO</span>
-        </div>
-    </header>
-
-    <nav class="main-nav" aria-label="Hovedmeny">
-        <a href="index.html">Runder</a>
-        <a href="kunder.html">Kunder</a>
-        <a href="historikk.html">Arbeidslogg</a>
-        <a href="data.html" aria-current="page">Data</a>
-    </nav>
-
-    <main>
-        <p class="prototype-note">Kun fiktive testdata. Lagres i denne nettleseren.</p>
-        <p id="feedback" role="status" aria-live="polite" hidden></p>
-
-        <div id="app">
+        </header>
+        <nav class="main-nav" aria-label="Hovedmeny">
+            <a href="index.html">
+                <span>Runder</span>
+            </a>
+            <a href="kunder.html">
+                <span>Kunder</span>
+            </a>
+            <a href="historikk.html">
+                <span>Logg</span>
+            </a>
+            <a href="data.html" aria-current="page">
+                <span>Data</span>
+            </a>
+        </nav>
+        <main>
+            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Data og sikkerhetskopi</h1>
+                <p>Forhåndsvisning av funksjoner som skal bygges senere.</p>
             </div>
-
             <div class="stack">
                 <section class="card">
-                    <h2>Lagring på denne enheten</h2>
-                    <p>Demoen lagrer i denne nettleseren med localStorage. Andre enheter har egne data. Sletting av nettleserdata kan fjerne alt.</p>
-                    <p><strong>Lokal lagring er ikke en sikkerhetskopi.</strong></p>
-                    <p><span id="data-counts"></span></p>
+                    <h2>Ingen lagring i denne versjonen</h2>
+                    <p>Dette er kun HTML og CSS. Kort og historikk er faste eksempler skrevet i HTML-filene.</p>
+                    <p>Innhold du skriver i feltene blir ikke lagret av appen.</p>
                 </section>
-
                 <section class="card">
                     <h2>Full sikkerhetskopi</h2>
-                    <p>Last ned alle demodata som JSON. En gjenoppretting erstatter dataene i denne nettleseren. Ta vare på en kopi først.</p>
-                    <button type="button" class="primary" data-action="backup">Eksporter sikkerhetskopi</button>
-
-                    <form id="restore-form" class="stack restore-form">
+                    <p>Eksport og gjenoppretting kommer når lagring bygges inn igjen.</p>
+                    <button type="button" disabled class="primary">Eksporter sikkerhetskopi</button>
+                    <div class="stack restore-form">
                         <label>
                             Velg sikkerhetskopi
-                            <input type="file" name="backup" accept=".json,application/json" required>
+                            <input type="file" disabled>
                         </label>
-                        <label class="checkbox">
-                            <input name="confirm" type="checkbox" required>
-                            Jeg vil erstatte lokale demodata med denne kopien.
-                        </label>
-                        <button type="submit">Gjenopprett sikkerhetskopi</button>
-                    </form>
+                        <button type="button" disabled>Gjenopprett sikkerhetskopi</button>
+                    </div>
                 </section>
-
                 <section class="card">
                     <h2>Regneark</h2>
-                    <p>CSV inneholder arbeidsregistreringer. Bruk JSON for en full sikkerhetskopi.</p>
-                    <button type="button" data-action="csv">Eksporter arbeidslogg som CSV</button>
-                </section>
-
-                <section class="card">
-                    <h2>Før ekte bruk</h2>
-                    <p>
-                        Dette er et redigerbart startpunkt med fiktive data. Offline-installasjon er ikke bygget ennå.
-                        Flymodus, gjenoppretting på en separat installasjon og bevaring av historikk må testes på Alfreds faktiske telefon før bruk.
-                    </p>
+                    <p>Eksport av arbeidsregistreringer som CSV kommer senere.</p>
+                    <button type="button" disabled>Eksporter arbeidslogg som CSV</button>
                 </section>
             </div>
-        </div>
-
-        <noscript>JavaScript må være på for å lese og lagre demodata. Menylenkene fungerer uten.</noscript>
-    </main>
-</body>
+        </main>
+    </body>
 </html>

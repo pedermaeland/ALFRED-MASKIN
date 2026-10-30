@@ -1,48 +1,48 @@
 <!doctype html>
 <html lang="nb">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kundedetaljer | ALFRED MASKIN</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="js/data.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/app.js" defer></script>
-</head>
-<body data-page="customer-edit">
-    <header class="app-header">
-        <div class="header-inner">
-            <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
-            <div>
-                <p class="eyebrow">ALFRED MASKIN</p>
-                <p class="app-title">Arbeidslogg</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Kundedetaljer | ALFRED MASKIN</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="app-header">
+            <div class="header-inner">
+                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
+                <div>
+                    <p class="eyebrow">ALFRED MASKIN</p>
+                    <p class="app-title">Logg</p>
+                </div>
+                <span class="demo-badge">UTKAST</span>
             </div>
-            <span class="demo-badge">DEMO</span>
-        </div>
-    </header>
-
-    <nav class="main-nav" aria-label="Hovedmeny">
-        <a href="index.html">Runder</a>
-        <a href="kunder.html" aria-current="page">Kunder</a>
-        <a href="historikk.html">Arbeidslogg</a>
-        <a href="data.html">Data</a>
-    </nav>
-
-    <main>
-        <p class="prototype-note">Kun fiktive testdata. Lagres i denne nettleseren.</p>
-        <p id="feedback" role="status" aria-live="polite" hidden></p>
-
-        <div id="app">
+        </header>
+        <nav class="main-nav" aria-label="Hovedmeny">
+            <a href="index.html">
+                <span>Runder</span>
+            </a>
+            <a href="kunder.html" aria-current="page">
+                <span>Kunder</span>
+            </a>
+            <a href="historikk.html">
+                <span>Logg</span>
+            </a>
+            <a href="data.html">
+                <span>Data</span>
+            </a>
+        </nav>
+        <main>
+            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Kundedetaljer</h1>
+                <p>Skjemaeksempel. Du kan prøve feltene, men ingenting lagres.</p>
             </div>
-
-            <form id="customer-form" class="card stack">
+            <!-- Vanlige HTML-felt. Endre value for å endre eksempelteksten. -->
+            <div class="card stack">
                 <label>
                     Navn
-                    <input name="name" required maxlength="120">
+                    <input name="name" value="Eksempelkunde A" maxlength="120">
                 </label>
-
                 <div class="form-grid">
                     <label>
                         Telefon (valgfritt)
@@ -53,28 +53,16 @@
                         <input name="email" type="email" maxlength="200">
                     </label>
                 </div>
-
                 <label>
                     Kundenotat (valgfritt)
-                    <textarea name="notes" rows="2" maxlength="2000"></textarea>
+                    <textarea name="notes" rows="2">Fiktiv kunde for testing av utseendet.</textarea>
                 </label>
-
-                <div id="address-fields" class="stack"></div>
-                <button type="button" data-action="add-address">Legg til en adresse</button>
-
-                <div class="actions">
-                    <button type="submit" class="primary">Lagre kunde</button>
-                    <a class="button" href="kunder.html">Avbryt</a>
-                </div>
-            </form>
-
-            <!-- Kopieres én gang per arbeidsadresse. Endre adressefeltene her. -->
-            <template id="address-template">
+                <!-- Kopier hele fieldset-blokken hvis du vil vise flere adresser. -->
                 <fieldset class="address-fields">
                     <legend>Arbeidsadresse</legend>
                     <label>
                         Adresse
-                        <input name="addressLabel" required maxlength="200">
+                        <input name="addressLabel" value="Eksempelvegen 10 (fiktiv)" required maxlength="200">
                     </label>
                     <label>
                         Instruksjoner
@@ -82,7 +70,7 @@
                     </label>
                     <div class="service-options">
                         <label class="checkbox">
-                            <input type="checkbox" name="services" value="Brøyting">
+                            <input type="checkbox" name="services" value="Brøyting" checked>
                             Brøyting
                         </label>
                         <label class="checkbox">
@@ -95,10 +83,12 @@
                         </label>
                     </div>
                 </fieldset>
-            </template>
-        </div>
-
-        <noscript>JavaScript må være på for å lese og lagre demodata. Menylenkene fungerer uten.</noscript>
-    </main>
-</body>
+                <button type="button" disabled>Legg til en adresse</button>
+                <div class="actions">
+                    <button type="button" disabled class="primary">Lagre kunde</button>
+                    <a class="button" href="kunder.html">Til kundene</a>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>

@@ -10,12 +10,13 @@
   background: var(--color-background);
 
   --color-accent: #c9151c;
+  --color-accent-light: #f54444;
   --color-accent-hover: #a91016;
   --color-background: #f5f4f1;
   --color-surface: #fff;
   --color-text: #202020;
   --color-muted: #62605d;
-  --color-border: #d9d7d2;
+  --color-border: #c2c2c2;
   --color-hover-surface: #ecebe7;
   --color-focus: #2467b4;
   --color-inverse: #fff;
@@ -33,13 +34,17 @@
 
   --content-width: 68rem;
 
-  
+
   --radius: 1rem;
   --corner-shape: superellipse(2);
 
   --radius-small: 1rem;
   --radius-medium: 1.5rem;
   --radius-large: 2.5rem;
+  --radius-pill: 9999px;
+
+  /* Endre denne verdien hvis du vil ha raskere eller langsommere glidning. */
+  --nav-slide-duration: 380ms;
 }
 
 
@@ -196,14 +201,14 @@ h1:focus {
 }
 
 .main-nav {
+  z-index: 20;
   display: flex;
-  gap: 0.25rem;
-  max-width: var(--content-width);
-  margin: auto;
+  gap: 0.5rem;
+  max-width: fit-content;
+  margin-left: 1rem;
+  margin-right: 1rem;
   padding: 0.75rem 1.25rem;
 }
-
-
 
 
 /* =========================================================
@@ -525,9 +530,38 @@ progress {
     padding-left: 1rem;
   }
 
+  main {
+    padding-bottom: 6rem;
+  }
+
   .main-nav {
-    gap: 0;
+    position: fixed;
+    bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+    right: 0;
+    left: 0;
+    width: auto;
+    max-width: none;
+    max-height: fit-content;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    box-sizing: border-box;
+    overflow: hidden;
+    gap: 0.5rem;
     padding: 0.5rem;
+
+    background-color: rgba(0, 0, 0, 0.02);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
+  }
+
+  .main-nav a {
+    min-width: 0;
+    flex: 1 1 0;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
 
@@ -543,21 +577,212 @@ progress {
     padding: 1rem;
   }
 }
+
 /* Ordinary links share the same appearance as action buttons. */
-a.button, .main-nav a {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 3rem; padding: 0.75rem 1rem; color: var(--color-text);
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: var(--radius-small); corner-shape: var(--corner-shape);
-  font-weight: 650; text-decoration: none;
+a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  corner-shape: var(--corner-shape);
+  font-weight: 650;
+  text-decoration: none;
 }
-a.button.primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-inverse); }
-a.button:hover { background: var(--color-hover-surface); }
-a.button.primary:hover { background: var(--color-accent-hover); }
-.main-nav a { border-color: var(--color-transparent); background: var(--color-transparent); }
-.main-nav a[aria-current] { background: var(--color-dark); color: var(--color-inverse); }
-a[aria-disabled] { opacity: 0.45; cursor: default; }
+
+.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+a.button.primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-inverse);
+}
+
+a.button:hover {
+  background: var(--color-hover-surface);
+}
+
+a.button.primary:hover {
+  background: var(--color-accent-hover);
+}
+
+
+
+
+#main-button {
+  padding: 10px;
+  min-height: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-pill);
+  corner-shape: round;
+  max-width: none;
+  width: fit-content;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+#main-button > div {
+  margin-left: 10px;
+  padding: 3px;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 2rem;
+  border-radius: 50%;
+  background-color: var(--color-accent-light);
+
+  transition: all 0.2s ease;
+}
+
+#main-button > div:hover {
+  width: 2.2rem;
+  height: 2.2rem;
+  flex: 0 0 2.2rem;
+}
+
+
+
+
+
+
+
+
+
+
+.main-nav a {
+  position: relative;
+  isolation: isolate;
+  border-color: var(--color-border);
+  background: var(--color-transparent);
+}
+
+.main-nav a[aria-current] {
+  color: var(--color-inverse);
+}
+
+/* Bakgrunn og tekst er separate lag, slik at bare pillen glir. */
+.main-nav a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.main-nav a[aria-current]::before {
+  background: var(--color-dark);
+  view-transition-name: nav-highlight;
+}
+
+.main-nav a span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Samme navn på alle sidene lar nettleseren holde teksten i ro. */
+.main-nav a[href="index.html"] span {
+  view-transition-name: nav-rounds;
+}
+
+.main-nav a[href="kunder.html"] span {
+  view-transition-name: nav-customers;
+}
+
+.main-nav a[href="historikk.html"] span {
+  view-transition-name: nav-history;
+}
+
+.main-nav a[href="data.html"] span {
+  view-transition-name: nav-data;
+}
+
+
+/* =========================================================
+   Sliding navbar - ingen JavaScript
+   Bruk Live Server for animasjon mellom HTML-sidene.
+   Nettlesere uten støtte viser vanlige, fungerende lenker.
+   ========================================================= */
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Sidens innhold byttes normalt. Vi animerer bare navigasjonen. */
+::view-transition-group(root) {
+  z-index: 0;
+  animation: none;
+}
+
+::view-transition-old(root) {
+  display: none;
+}
+
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* Nettleseren flytter pillen fra gammel til ny posisjon. */
+::view-transition-group(nav-highlight) {
+  z-index: 1;
+  animation-duration: var(--nav-slide-duration);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(nav-highlight) {
+  display: none;
+}
+
+::view-transition-new(nav-highlight) {
+  height: 100%;
+  animation: none;
+}
+
+/* Teksten ligger over pillen, også mens animasjonen kjører. */
+::view-transition-group(nav-rounds),
+::view-transition-group(nav-customers),
+::view-transition-group(nav-history),
+::view-transition-group(nav-data) {
+  z-index: 2;
+  animation-duration: var(--nav-slide-duration);
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Respekter telefonens innstilling for redusert bevegelse. */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+a[aria-disabled] {
+  opacity: 0.45;
+  cursor: default;
+}
+
 @media (max-width: 36rem) {
-  .main-nav a { flex: 1; padding: 0.6rem 0.4rem; font-size: 0.85rem; }
-  .actions > a { flex: 1 1 auto; }
+  .main-nav a {
+    flex: 1;
+    padding: 0.6rem 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .actions > a {
+    flex: 1 1 auto;
+  }
+
 }

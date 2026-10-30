@@ -1,68 +1,89 @@
 <!doctype html>
 <html lang="nb">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rediger runde | ALFRED MASKIN</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="js/data.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/app.js" defer></script>
-</head>
-<body data-page="round-edit">
-    <header class="app-header">
-        <div class="header-inner">
-            <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
-            <div>
-                <p class="eyebrow">ALFRED MASKIN</p>
-                <p class="app-title">Arbeidslogg</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rediger runde | ALFRED MASKIN</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="app-header">
+            <div class="header-inner">
+                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
+                <div>
+                    <p class="eyebrow">ALFRED MASKIN</p>
+                    <p class="app-title">Logg</p>
+                </div>
+                <span class="demo-badge">UTKAST</span>
             </div>
-            <span class="demo-badge">DEMO</span>
-        </div>
-    </header>
-
-    <nav class="main-nav" aria-label="Hovedmeny">
-        <a href="index.html" aria-current="page">Runder</a>
-        <a href="kunder.html">Kunder</a>
-        <a href="historikk.html">Arbeidslogg</a>
-        <a href="data.html">Data</a>
-    </nav>
-
-    <main>
-        <p class="prototype-note">Kun fiktive testdata. Lagres i denne nettleseren.</p>
-        <p id="feedback" role="status" aria-live="polite" hidden></p>
-
-        <div id="app">
+        </header>
+        <nav class="main-nav" aria-label="Hovedmeny">
+            <a href="index.html" aria-current="page">
+                <span>Runder</span>
+            </a>
+            <a href="kunder.html">
+                <span>Kunder</span>
+            </a>
+            <a href="historikk.html">
+                <span>Logg</span>
+            </a>
+            <a href="data.html">
+                <span>Data</span>
+            </a>
+        </nav>
+        <main>
+            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Rundedetaljer</h1>
+                <p>Rekkefølgen følger li-blokkene i HTML-filen. Flytt dem i koden for å endre den.</p>
             </div>
-
-            <form id="round-form" class="card stack">
+            <div class="card stack">
                 <label>
                     Navn på runden
-                    <input name="name" required maxlength="120">
+                    <input name="name" value="Brøyterunde" maxlength="120">
                 </label>
-
                 <h2>Adresser i kjørerekkefølge</h2>
-                <ol id="round-stops" class="stop-list"></ol>
-
+                <ol class="stop-list">
+                    <li class="card">
+                        <strong>Eksempelkunde A</strong>
+                        <p>Eksempelvegen 10 (fiktiv)</p>
+                        <div class="actions">
+                            <button type="button" disabled>Opp</button>
+                            <button type="button" disabled>Ned</button>
+                            <button type="button" disabled>Fjern fra runden</button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <strong>Eksempelkunde B</strong>
+                        <p>Testbakken 22 (fiktiv)</p>
+                        <div class="actions">
+                            <button type="button" disabled>Opp</button>
+                            <button type="button" disabled>Ned</button>
+                            <button type="button" disabled>Fjern fra runden</button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <strong>Eksempelkunde C</strong>
+                        <p>Demotunet 3 (fiktiv)</p>
+                        <div class="actions">
+                            <button type="button" disabled>Opp</button>
+                            <button type="button" disabled>Ned</button>
+                            <button type="button" disabled>Fjern fra runden</button>
+                        </div>
+                    </li>
+                </ol>
                 <label>
                     Legg til arbeidsadresse
-                    <select name="address">
-                        <option value="">Velg adresse</option>
+                    <select disabled>
+                        <option>Adressevalg kommer senere</option>
                     </select>
                 </label>
-
-                <button type="button" data-action="add-stop">Legg til adresse</button>
-
+                <button type="button" disabled>Legg til adresse</button>
                 <div class="actions">
-                    <button type="submit" class="primary">Lagre runde</button>
-                    <a class="button" href="index.html">Avbryt</a>
+                    <button type="button" disabled class="primary">Lagre runde</button>
+                    <a class="button" href="index.html">Til rundene</a>
                 </div>
-            </form>
-        </div>
-
-        <noscript>JavaScript må være på for å lese og lagre demodata. Menylenkene fungerer uten.</noscript>
-    </main>
-</body>
+            </div>
+        </main>
+    </body>
 </html>

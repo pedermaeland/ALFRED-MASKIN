@@ -1,62 +1,88 @@
 <!doctype html>
 <html lang="nb">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kunder | ALFRED MASKIN</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="js/data.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/app.js" defer></script>
-</head>
-<body data-page="customers">
-    <header class="app-header">
-        <div class="header-inner">
-            <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
-            <div>
-                <p class="eyebrow">ALFRED MASKIN</p>
-                <p class="app-title">Arbeidslogg</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Kunder | ALFRED MASKIN</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="app-header">
+            <div class="header-inner">
+                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
+                <div>
+                    <p class="eyebrow">ALFRED MASKIN</p>
+                    <p class="app-title">Logg</p>
+                </div>
+                <span class="demo-badge">UTKAST</span>
             </div>
-            <span class="demo-badge">DEMO</span>
-        </div>
-    </header>
-
-    <nav class="main-nav" aria-label="Hovedmeny">
-        <a href="index.html">Runder</a>
-        <a href="kunder.html" aria-current="page">Kunder</a>
-        <a href="historikk.html">Arbeidslogg</a>
-        <a href="data.html">Data</a>
-    </nav>
-
-    <main>
-        <p class="prototype-note">Kun fiktive testdata. Lagres i denne nettleseren.</p>
-        <p id="feedback" role="status" aria-live="polite" hidden></p>
-
-        <div id="app">
+        </header>
+        <nav class="main-nav" aria-label="Hovedmeny">
+            <a href="index.html">
+                <span>Runder</span>
+            </a>
+            <a href="kunder.html" aria-current="page">
+                <span>Kunder</span>
+            </a>
+            <a href="historikk.html">
+                <span>Logg</span>
+            </a>
+            <a href="data.html">
+                <span>Data</span>
+            </a>
+        </nav>
+        <main>
+            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Kunder</h1>
-                <p>Kunder, arbeidsadresser og instruksjoner.</p>
+                <p>Fiktive kundekort. Endre teksten direkte i denne HTML-filen.</p>
             </div>
-
             <div class="toolbar">
-                <a class="button primary" href="kunde.html">Ny kunde</a>
+                <a class="button primary" href="kunde.html">Se kundeskjema</a>
             </div>
-
             <div class="filters">
                 <label>
                     Søk etter navn eller adresse
-                    <input id="customer-search" type="search" placeholder="Søk …">
+                    <input type="search" placeholder="Søk kommer senere" disabled>
                 </label>
                 <label class="checkbox">
-                    <input id="show-archived" type="checkbox">
+                    <input type="checkbox" disabled>
                     Vis arkiverte
                 </label>
             </div>
-
-            <div id="customer-results" class="stack"></div>
-        </div>
-
-        <noscript>JavaScript må være på for å lese og lagre demodata. Menylenkene fungerer uten.</noscript>
-    </main>
-</body>
+            <!-- Kopier en hel article-blokk hvis du vil legge til flere visuelle eksempler. -->
+            <div class="stack">
+                <article class="card">
+                    <h2>Eksempelkunde A</h2>
+                    <p class="small muted">Kunde-ID: demo-1</p>
+                    <p>Eksempelvegen 10 (fiktiv)</p>
+                    <div class="actions">
+                        <a class="button" href="kunde.html">Se kundeskjema</a>
+                        <a class="button" href="historikk.html">Se eksempelhistorikk</a>
+                        <button type="button" disabled>Arkiver</button>
+                    </div>
+                </article>
+                <article class="card">
+                    <h2>Eksempelkunde B</h2>
+                    <p class="small muted">Kunde-ID: demo-2</p>
+                    <p>Testbakken 22 (fiktiv)</p>
+                    <div class="actions">
+                        <a class="button" href="kunde.html">Se kundeskjema</a>
+                        <a class="button" href="historikk.html">Se eksempelhistorikk</a>
+                        <button type="button" disabled>Arkiver</button>
+                    </div>
+                </article>
+                <article class="card">
+                    <h2>Eksempelkunde C</h2>
+                    <p class="small muted">Kunde-ID: demo-3</p>
+                    <p>Demotunet 3 (fiktiv)</p>
+                    <div class="actions">
+                        <a class="button" href="kunde.html">Se kundeskjema</a>
+                        <a class="button" href="historikk.html">Se eksempelhistorikk</a>
+                        <button type="button" disabled>Arkiver</button>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </body>
 </html>

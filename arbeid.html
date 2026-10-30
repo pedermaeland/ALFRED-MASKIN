@@ -1,90 +1,85 @@
 <!doctype html>
 <html lang="nb">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registrer arbeid | ALFRED MASKIN</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="js/data.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/app.js" defer></script>
-</head>
-<body data-page="work">
-    <header class="app-header">
-        <div class="header-inner">
-            <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
-            <div>
-                <p class="eyebrow">ALFRED MASKIN</p>
-                <p class="app-title">Arbeidslogg</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Registrer arbeid | ALFRED MASKIN</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="app-header">
+            <div class="header-inner">
+                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
+                <div>
+                    <p class="eyebrow">ALFRED MASKIN</p>
+                    <p class="app-title">Logg</p>
+                </div>
+                <span class="demo-badge">UTKAST</span>
             </div>
-            <span class="demo-badge">DEMO</span>
-        </div>
-    </header>
-
-    <nav class="main-nav" aria-label="Hovedmeny">
-        <a href="index.html" aria-current="page">Runder</a>
-        <a href="kunder.html">Kunder</a>
-        <a href="historikk.html">Arbeidslogg</a>
-        <a href="data.html">Data</a>
-    </nav>
-
-    <main>
-        <p class="prototype-note">Kun fiktive testdata. Lagres i denne nettleseren.</p>
-        <p id="feedback" role="status" aria-live="polite" hidden></p>
-
-        <div id="app">
+        </header>
+        <nav class="main-nav" aria-label="Hovedmeny">
+            <a href="index.html" aria-current="page">
+                <span>Runder</span>
+            </a>
+            <a href="kunder.html">
+                <span>Kunder</span>
+            </a>
+            <a href="historikk.html">
+                <span>Logg</span>
+            </a>
+            <a href="data.html">
+                <span>Data</span>
+            </a>
+        </nav>
+        <main>
+            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
-                <h1 id="run-name">Registrer arbeid</h1>
-                <p id="run-progress"></p>
+                <h1>Brøyterunde</h1>
+                <p>Eksempelvisning · 1 fullført · 0 hoppet over · 2 gjenstår</p>
             </div>
-
-            <progress id="progress" aria-label="Behandlede stopp"></progress>
-
+            <progress value="1" max="3" aria-label="Eksempel: behandlede stopp"></progress>
             <div class="toolbar">
                 <a class="button" href="index.html">Til rundene</a>
-                <span id="stop-number"></span>
+                <span>Eksempel: stopp 2 av 3</span>
             </div>
-
             <article class="card work-card">
-                <span id="stop-status" class="status"></span>
-                <h2 id="customer-name"></h2>
-                <p id="work-address" class="address"></p>
-                <p id="instructions" class="instructions"></p>
-                <p id="saved-work"></p>
-
-                <form id="work-form" class="stack">
+                <span class="status pending">Gjenstår</span>
+                <h2>Eksempelkunde B</h2>
+                <p class="address">Testbakken 22 (fiktiv)</p>
+                <p class="instructions">Legg snøen på venstre side.</p>
+                <!-- Feltene kan prøves, men knappene er deaktivert og ingenting lagres. -->
+                <div class="stack">
                     <label>
                         Tjeneste
-                        <select name="service"></select>
+                        <select name="service">
+                            <option>Brøyting</option>
+                            <option>Strøing</option>
+                            <option>Annet arbeid</option>
+                        </select>
                     </label>
                     <label>
                         Utført dato og klokkeslett
-                        <input type="datetime-local" name="workedAt" required>
+                        <input type="datetime-local" value="2026-10-30T08:00">
                     </label>
                     <label>
                         Varighet i minutter (valgfritt)
-                        <input type="number" name="duration" min="0" max="10080" step="1" inputmode="numeric">
+                        <input type="number" min="0" placeholder="F.eks. 15">
                     </label>
                     <label>
                         Notat (valgfritt)
-                        <textarea name="note" rows="3" maxlength="2000"></textarea>
+                        <textarea rows="3" placeholder="Skriv et eksempelnotat …"></textarea>
                     </label>
-                    <button type="submit" class="primary">Lagre og neste</button>
-                    <button type="button" data-action="skip-stop">Hopp over</button>
-                </form>
+                    <button type="button" disabled class="primary">Lagre og neste</button>
+                    <button type="button" disabled>Hopp over</button>
+                </div>
             </article>
-
             <div class="work-navigation">
-                <a id="previous-stop" class="button">Forrige</a>
-                <a id="next-stop" class="button">Neste</a>
+                <button type="button" disabled>Forrige</button>
+                <button type="button" disabled>Neste</button>
             </div>
-
-            <p class="muted">Forrige og Neste bytter bare side. Arbeid registreres først når du trykker «Lagre og neste».</p>
+            <p class="muted">Fast skjermeksempel. Registrering og bytte mellom stopp kommer senere.</p>
             <h2 class="section-title">Historikk på adressen</h2>
-            <div id="address-history"></div>
-        </div>
-
-        <noscript>JavaScript må være på for å lese og lagre demodata. Menylenkene fungerer uten.</noscript>
-    </main>
-</body>
+            <p class="empty">Ingen tidligere arbeid i dette eksemplet.</p>
+        </main>
+    </body>
 </html>
