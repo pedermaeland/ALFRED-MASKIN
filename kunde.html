@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Kundedetaljer | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="continuous-corners.css">
     </head>
     <body>
         <header class="app-header">
@@ -19,54 +20,68 @@
         </header>
         <nav class="main-nav" aria-label="Hovedmeny">
             <a href="index.html">
-                <span>Runder</span>
+                <img src="assets/home.svg" alt="" aria-hidden="true">
+                <span>Oversikt</span>
             </a>
             <a href="kunder.html" aria-current="page">
+                <img src="assets/customers.svg" alt="" aria-hidden="true">
                 <span>Kunder</span>
             </a>
             <a href="historikk.html">
+                <img src="assets/history.svg" alt="" aria-hidden="true">
                 <span>Logg</span>
             </a>
             <a href="data.html">
+                <img src="assets/export.svg" alt="" aria-hidden="true">
                 <span>Data</span>
             </a>
         </nav>
         <main>
-            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Kundedetaljer</h1>
-                <p>Skjemaeksempel. Du kan prøve feltene, men ingenting lagres.</p>
             </div>
             <!-- Vanlige HTML-felt. Endre value for å endre eksempelteksten. -->
             <div class="card stack">
                 <label>
                     Navn
-                    <input name="name" value="Eksempelkunde A" maxlength="120">
+                    <span class="smooth-field">
+                        <input name="name" value="Eksempelkunde A" maxlength="120">
+                    </span>
                 </label>
                 <div class="form-grid">
                     <label>
                         Telefon (valgfritt)
-                        <input name="phone" type="tel" maxlength="50">
+                        <span class="smooth-field">
+                            <input name="phone" type="tel" maxlength="50">
+                        </span>
                     </label>
                     <label>
                         E-post (valgfritt)
-                        <input name="email" type="email" maxlength="200">
+                        <span class="smooth-field">
+                            <input name="email" type="email" maxlength="200">
+                        </span>
                     </label>
                 </div>
                 <label>
                     Kundenotat (valgfritt)
-                    <textarea name="notes" rows="2">Fiktiv kunde for testing av utseendet.</textarea>
+                    <span class="smooth-field">
+                        <textarea name="notes" rows="2"></textarea>
+                    </span>
                 </label>
                 <!-- Kopier hele fieldset-blokken hvis du vil vise flere adresser. -->
                 <fieldset class="address-fields">
                     <legend>Arbeidsadresse</legend>
                     <label>
                         Adresse
-                        <input name="addressLabel" value="Eksempelvegen 10 (fiktiv)" required maxlength="200">
+                        <span class="smooth-field">
+                            <input name="addressLabel" value="Eksempelvegen 10" required maxlength="200">
+                        </span>
                     </label>
                     <label>
                         Instruksjoner
-                        <textarea name="instructions" rows="2" maxlength="2000"></textarea>
+                        <span class="smooth-field">
+                            <textarea name="instructions" rows="2" maxlength="2000"></textarea>
+                        </span>
                     </label>
                     <div class="service-options">
                         <label class="checkbox">

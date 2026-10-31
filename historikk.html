@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Logg | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="continuous-corners.css">
     </head>
     <body>
         <header class="app-header">
@@ -19,40 +20,48 @@
         </header>
         <nav class="main-nav" aria-label="Hovedmeny">
             <a href="index.html">
-                <span>Runder</span>
+                <img src="assets/home.svg" alt="" aria-hidden="true">
+                <span>Oversikt</span>
             </a>
             <a href="kunder.html">
+                <img src="assets/customers.svg" alt="" aria-hidden="true">
                 <span>Kunder</span>
             </a>
             <a href="historikk.html" aria-current="page">
+                <img src="assets/history.svg" alt="" aria-hidden="true">
                 <span>Logg</span>
             </a>
             <a href="data.html">
+                <img src="assets/export.svg" alt="" aria-hidden="true">
                 <span>Data</span>
             </a>
         </nav>
         <main>
-            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Logg</h1>
-                <p>Fast eksempelhistorikk. Filtrering og registrering kommer senere.</p>
             </div>
             <div class="filters">
                 <label>
                     Kunde
-                    <select disabled>
-                        <option>Alle kunder</option>
-                    </select>
+                    <span class="smooth-field">
+                        <select disabled>
+                            <option>Alle kunder</option>
+                        </select>
+                    </span>
                 </label>
                 <label>
                     Dato
-                    <input type="date" disabled>
+                    <span class="smooth-field">
+                        <input type="date" disabled>
+                    </span>
                 </label>
                 <label>
                     Tjeneste
-                    <select disabled>
-                        <option>Alle tjenester</option>
-                    </select>
+                    <span class="smooth-field">
+                        <select disabled>
+                            <option>Alle tjenester</option>
+                        </select>
+                    </span>
                 </label>
             </div>
             <div class="stack">
@@ -62,13 +71,13 @@
                         <h3>Eksempelkunde A</h3>
                         <span class="status completed">Brøyting</span>
                     </div>
-                    <p>Eksempelvegen 10 (fiktiv)</p>
+                    <p>Eksempelvegen 10</p>
                     <p>
                         <strong>30.10.2026, 07:30</strong>
                         · 15 min
                     </p>
-                    <p class="instructions">Brøytet foran garasjen. Fiktivt eksempel.</p>
-                    <p class="small muted">Registrert 30.10.2026, 07:45 · Eksempeldata</p>
+                    <p class="instructions">Brøytet foran garasjen.</p>
+
                 </article>
             </div>
         </main>

@@ -1,0 +1,52 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="320"
+    height="160"
+    viewBox="0 0 320 160"
+    role="img"
+    aria-labelledby="shape-title shape-description"
+>
+    <title id="shape-title">Kontinuerlige hjørner</title>
+    <desc id="shape-description">
+        Et rektangel med G2-kontinuerlige hjørner. Kurven går gradvis
+        fra rette kanter til avrundede hjørner. Dette er en egen
+        tilnærming til uttrykket, ikke en eksakt kopi av Apples geometri.
+    </desc>
+
+    <!--
+        Endre fill for å bytte farge.
+        Bakgrunnen er gjennomsiktig.
+
+        Hvert hjørne består av to C-kommandoer (kubiske Bézier-kurver).
+        L-kommandoene er de rette kantene mellom hjørnene.
+        Kurvaturen er null der kurven møter en rett kant, og den
+        er lik på begge sider av skjøten mellom de to kurvene (G2).
+
+        Dette er en fast 320 x 160-form. Skaler proporsjonalt for å
+        beholde hjørnene. Den tilpasser ikke hjørneradiusen automatisk
+        til HTML-kort med andre størrelsesforhold.
+    -->
+    <path
+        id="continuous-rectangle"
+        fill="#202020"
+        d="
+            M 48 0
+            L 272 0
+            C 286.4 0 300.8 0 310.4 9.6
+            C 320 19.2 320 33.6 320 48
+
+            L 320 112
+            C 320 126.4 320 140.8 310.4 150.4
+            C 300.8 160 286.4 160 272 160
+
+            L 48 160
+            C 33.6 160 19.2 160 9.6 150.4
+            C 0 140.8 0 126.4 0 112
+
+            L 0 48
+            C 0 33.6 0 19.2 9.6 9.6
+            C 19.2 0 33.6 0 48 0
+            Z
+        "
+    />
+</svg>

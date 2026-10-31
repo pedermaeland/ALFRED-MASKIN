@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Data og sikkerhetskopi | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="continuous-corners.css">
     </head>
     <body>
         <header class="app-header">
@@ -19,46 +20,46 @@
         </header>
         <nav class="main-nav" aria-label="Hovedmeny">
             <a href="index.html">
-                <span>Runder</span>
+                <img src="assets/home.svg" alt="" aria-hidden="true">
+                <span>Oversikt</span>
             </a>
             <a href="kunder.html">
+                <img src="assets/customers.svg" alt="" aria-hidden="true">
                 <span>Kunder</span>
             </a>
             <a href="historikk.html">
+                <img src="assets/history.svg" alt="" aria-hidden="true">
                 <span>Logg</span>
             </a>
             <a href="data.html" aria-current="page">
+                <img src="assets/export.svg" alt="" aria-hidden="true">
                 <span>Data</span>
             </a>
         </nav>
         <main>
-            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
-                <h1>Data og sikkerhetskopi</h1>
-                <p>Forhåndsvisning av funksjoner som skal bygges senere.</p>
+                <h1>Data</h1>
             </div>
             <div class="stack">
+                <p class="muted">Lagring og eksport er ikke aktivert i utkastet.</p>
                 <section class="card">
-                    <h2>Ingen lagring i denne versjonen</h2>
-                    <p>Dette er kun HTML og CSS. Kort og historikk er faste eksempler skrevet i HTML-filene.</p>
-                    <p>Innhold du skriver i feltene blir ikke lagret av appen.</p>
-                </section>
-                <section class="card">
-                    <h2>Full sikkerhetskopi</h2>
-                    <p>Eksport og gjenoppretting kommer når lagring bygges inn igjen.</p>
-                    <button type="button" disabled class="primary">Eksporter sikkerhetskopi</button>
+                    <h2>Sikkerhetskopi</h2>
+
+                    <button type="button" disabled class="primary">Last ned sikkerhetskopi</button>
                     <div class="stack restore-form">
                         <label>
                             Velg sikkerhetskopi
-                            <input type="file" disabled>
+                            <span class="smooth-field">
+                                <input type="file" disabled>
+                            </span>
                         </label>
-                        <button type="button" disabled>Gjenopprett sikkerhetskopi</button>
+                        <button type="button" disabled>Gjenopprett</button>
                     </div>
                 </section>
                 <section class="card">
                     <h2>Regneark</h2>
-                    <p>Eksport av arbeidsregistreringer som CSV kommer senere.</p>
-                    <button type="button" disabled>Eksporter arbeidslogg som CSV</button>
+
+                    <button type="button" disabled>Last ned CSV</button>
                 </section>
             </div>
         </main>

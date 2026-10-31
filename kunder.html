@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Kunder | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="continuous-corners.css">
     </head>
     <body>
         <header class="app-header">
@@ -19,31 +20,35 @@
         </header>
         <nav class="main-nav" aria-label="Hovedmeny">
             <a href="index.html">
-                <span>Runder</span>
+                <img src="assets/home.svg" alt="" aria-hidden="true">
+                <span>Oversikt</span>
             </a>
             <a href="kunder.html" aria-current="page">
+                <img src="assets/customers.svg" alt="" aria-hidden="true">
                 <span>Kunder</span>
             </a>
             <a href="historikk.html">
+                <img src="assets/history.svg" alt="" aria-hidden="true">
                 <span>Logg</span>
             </a>
             <a href="data.html">
+                <img src="assets/export.svg" alt="" aria-hidden="true">
                 <span>Data</span>
             </a>
         </nav>
         <main>
-            <p class="prototype-note">Designutkast · Fiktive eksempler · Ingen lagring</p>
             <div class="page-heading">
                 <h1>Kunder</h1>
-                <p>Fiktive kundekort. Endre teksten direkte i denne HTML-filen.</p>
             </div>
             <div class="toolbar">
-                <a class="button primary" href="kunde.html">Se kundeskjema</a>
+                <a class="button primary" href="kunde.html">Ny kunde</a>
             </div>
             <div class="filters">
                 <label>
-                    Søk etter navn eller adresse
-                    <input type="search" placeholder="Søk kommer senere" disabled>
+                    Søk
+                    <span class="smooth-field">
+                        <input type="search" placeholder="Navn eller adresse" disabled>
+                    </span>
                 </label>
                 <label class="checkbox">
                     <input type="checkbox" disabled>
@@ -54,31 +59,31 @@
             <div class="stack">
                 <article class="card">
                     <h2>Eksempelkunde A</h2>
-                    <p class="small muted">Kunde-ID: demo-1</p>
-                    <p>Eksempelvegen 10 (fiktiv)</p>
+
+                    <p>Eksempelvegen 10</p>
                     <div class="actions">
-                        <a class="button" href="kunde.html">Se kundeskjema</a>
-                        <a class="button" href="historikk.html">Se eksempelhistorikk</a>
+                        <a class="button" href="kunde.html">Åpne</a>
+                        <a class="button" href="historikk.html">Historikk</a>
                         <button type="button" disabled>Arkiver</button>
                     </div>
                 </article>
                 <article class="card">
                     <h2>Eksempelkunde B</h2>
-                    <p class="small muted">Kunde-ID: demo-2</p>
-                    <p>Testbakken 22 (fiktiv)</p>
+
+                    <p>Testbakken 22</p>
                     <div class="actions">
-                        <a class="button" href="kunde.html">Se kundeskjema</a>
-                        <a class="button" href="historikk.html">Se eksempelhistorikk</a>
+                        <a class="button" href="kunde.html">Åpne</a>
+                        <a class="button" href="historikk.html">Historikk</a>
                         <button type="button" disabled>Arkiver</button>
                     </div>
                 </article>
                 <article class="card">
                     <h2>Eksempelkunde C</h2>
-                    <p class="small muted">Kunde-ID: demo-3</p>
-                    <p>Demotunet 3 (fiktiv)</p>
+
+                    <p>Demotunet 3</p>
                     <div class="actions">
-                        <a class="button" href="kunde.html">Se kundeskjema</a>
-                        <a class="button" href="historikk.html">Se eksempelhistorikk</a>
+                        <a class="button" href="kunde.html">Åpne</a>
+                        <a class="button" href="historikk.html">Historikk</a>
                         <button type="button" disabled>Arkiver</button>
                     </div>
                 </article>
