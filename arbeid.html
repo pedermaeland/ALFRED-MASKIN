@@ -3,40 +3,25 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#111415">
         <title>Registrer arbeid | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="continuous-corners.css">
+        <script src="arbeid.js" defer></script>
     </head>
     <body>
         <header class="app-header">
             <div class="header-inner">
-                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
                 <div>
                     <p class="eyebrow">ALFRED MASKIN</p>
-                    <p class="app-title">Logg</p>
                 </div>
-                <span class="demo-badge">UTKAST</span>
+                <span class="demo-badge" title="Kun fiktive testdata">DEMO</span>
             </div>
         </header>
-        <nav class="main-nav" aria-label="Hovedmeny">
-            <a href="index.html" aria-current="page">
-                <img src="assets/home.svg" alt="" aria-hidden="true">
-                <span>Oversikt</span>
-            </a>
-            <a href="kunder.html">
-                <img src="assets/customers.svg" alt="" aria-hidden="true">
-                <span>Kunder</span>
-            </a>
-            <a href="historikk.html">
-                <img src="assets/history.svg" alt="" aria-hidden="true">
-                <span>Logg</span>
-            </a>
-            <a href="data.html">
-                <img src="assets/export.svg" alt="" aria-hidden="true">
-                <span>Data</span>
-            </a>
-        </nav>
         <main>
+            <a class="back-link" href="index.html" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                <img src="assets/back.svg" alt="" aria-hidden="true">
+            </a>
             <div class="page-heading">
                 <h1>Brøyterunde</h1>
             </div>
@@ -55,7 +40,7 @@
                     <label>
                         Tjeneste
                         <span class="smooth-field">
-                            <select name="service">
+                            <select name="service" id="service">
                                 <option>Brøyting</option>
                                 <option>Strøing</option>
                                 <option>Annet arbeid</option>
@@ -77,10 +62,10 @@
                     <label>
                         Notat (valgfritt)
                         <span class="smooth-field">
-                            <textarea rows="3" placeholder=""></textarea>
+                            <textarea rows="3" placeholder="" id="note-text"></textarea>
                         </span>
                     </label>
-                    <button type="button" disabled class="primary">Lagre og neste</button>
+                    <button type="button" id="save-work" class="primary">Lagre og neste</button>
                     <button type="button" disabled>Hopp over</button>
                 </div>
             </article>

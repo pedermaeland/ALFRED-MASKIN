@@ -1,7 +1,7 @@
 /* =========================================================
    G2-hjørner og glasskanter - ingen JavaScript
 
-   Kort og Ny runde-knappen har glasskant. Felt har en ensfarget kant.
+   Kort og tilbakeknapper har glasskant. Felt har en ensfarget kant.
    Endre glassfargene under GLASSKANTER i style.css.
    Bakgrunner, tekst og layout styres fortsatt der.
 
@@ -16,16 +16,15 @@
   /* 1. FORMER OG STØRRELSER */
   button,
   a.button,
-  .main-nav a,
   .smooth-field,
   .card,
+  .overview-tile,
   .address-fields,
   .instructions,
   .status,
   .demo-badge,
   .empty,
-  .feedback,
-  .main-nav {
+  .feedback {
     --smooth-corner: var(--radius-small);
     --smooth-outline: url("assets/continuous-outline-small.svg");
     --smooth-outline-slice: 192;
@@ -40,6 +39,7 @@
   }
 
   .card,
+  .overview-tile,
   .address-fields,
   .empty {
     --smooth-corner: var(--radius-medium);
@@ -57,30 +57,11 @@
     align-items: center;
   }
 
-  .main-nav {
-    --smooth-corner: 2rem;
-    --smooth-outline: url("assets/continuous-outline-large.svg");
-
-    /* Masker på en forelder kan skjule bakgrunnen i view transitions.
-       Formen flyttes til et eget bakgrunnslag under lenkene. */
-    -webkit-mask-box-image-source: none;
-  }
-
-  .main-nav a {
-    --smooth-corner: 1.5rem;
-    --smooth-outline: url("assets/continuous-outline-medium.svg");
-
-    /* Lenkene trenger ikke en ekstra SVG-maske rundt markøren. */
-    border-radius: 1.5rem;
-    -webkit-mask-box-image-source: none;
-  }
-
   /* 2. KANTEN TEGNES PÅ ET EGET LAG
      Den vanlige kanten er gjennomsiktig og holder plassen i layouten.
      ::after maler bare omrisset. Midten er helt gjennomsiktig. */
   button,
   a.button,
-  .main-nav a,
   .card,
   .address-fields,
   .demo-badge,
@@ -101,7 +82,7 @@
   .smooth-field {
     display: grid;
     min-width: 0;
-    background: var(--color-inverse);
+    background: var(--color-field);
   }
 
   .card::after,
@@ -126,6 +107,25 @@
     opacity: var(--glass-edge-opacity);
   }
 
+  /* Rund tilbakeknapp med samme overflate og kantlys som kortene. */
+  .back-link {
+    border-color: transparent;
+  }
+
+  .back-link::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: var(--glass-edge-paint);
+    opacity: var(--glass-edge-opacity);
+    -webkit-mask-box-image-source: url("assets/continuous-outline-pill.svg");
+    -webkit-mask-box-image-slice: 192 fill;
+    -webkit-mask-box-image-width: 50%;
+    -webkit-mask-box-image-repeat: stretch;
+  }
+
   /* Feltgruppen må ikke klippe teksten i legend. */
   .address-fields {
     -webkit-mask-box-image-source: none;
@@ -143,49 +143,6 @@
     corner-shape: round;
   }
 
-  /* 3. EKTE PILLE OG SIRKEL
-     Ny runde-knappen skal ha halvsirkler, ikke G2-hjørner.
-     Denne knappen og pilen beholder glasskanten som et unntak. */
-  #main-button {
-    -webkit-mask-box-image-source: none;
-    border: 1px solid transparent;
-    border-radius: var(--radius-pill);
-    corner-shape: round;
-  }
-
-  button.primary,
-  a.button.primary {
-    border-color: transparent;
-  }
-
-  #main-button > div {
-    position: relative;
-  }
-
-  #main-button::after,
-  #main-button > div::after {
-    content: "";
-    position: absolute;
-    border-radius: inherit;
-    pointer-events: none;
-    background: var(--glass-edge-paint);
-    opacity: var(--glass-edge-opacity);
-    -webkit-mask-box-image-slice: 192 fill;
-    -webkit-mask-box-image-repeat: stretch;
-  }
-
-  #main-button::after {
-    inset: -1px;
-    -webkit-mask-box-image-source: url("assets/continuous-outline-pill.svg");
-    -webkit-mask-box-image-width: 1.5rem;
-  }
-
-  #main-button > div::after {
-    inset: 0;
-    -webkit-mask-box-image-source: url("assets/continuous-outline-circle.svg");
-    -webkit-mask-box-image-width: 50%;
-  }
-
   /* Filknappen beholder formen sin, uten glasskant.
      Vanlige avkrysningsbokser og fremdriftsindikatorer beholdes native. */
   input[type="file"]::file-selector-button {
@@ -196,45 +153,11 @@
     -webkit-mask-box-image-repeat: stretch;
   }
 
-  /* 4. NAVIGASJON
-     Menylinjen og lenkene har ingen dekorativ kant.
-     Den mørke markøren og glidningen beholdes i ::before. */
-  .main-nav a::before {
-    /* En enkel avrunding gir et lettere lag å flytte på telefonen. */
-    border-radius: inherit;
-    -webkit-mask-box-image-source: none;
-  }
-
-  @media (max-width: 36rem) {
-    .main-nav {
-      --edge-inset: -1px;
-
-      isolation: isolate;
-      overflow: visible;
-      background: transparent;
-      border-color: transparent;
-    }
-
-    .main-nav::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      z-index: -1;
-      pointer-events: none;
-      background: var(--nav-background);
-      -webkit-mask-box-image-source: url("assets/continuous-corners.svg");
-      -webkit-mask-box-image-slice: 48 fill;
-      -webkit-mask-box-image-width: var(--smooth-corner);
-      -webkit-mask-box-image-repeat: stretch;
-    }
-
-  }
-
-  /* 5. TASTATUR OG HØYKONTRAST
+  /* 3. TASTATUR OG HØYKONTRAST
      Kantlyset er dekorasjon. Blått fokus skal fortsatt være tydelig. */
   button:focus-visible,
   a.button:focus-visible,
-  .main-nav a:focus-visible,
+  .back-link:focus-visible,
   .smooth-field:focus-within {
     outline: none;
     box-shadow: inset 0 0 0 3px var(--color-focus);
@@ -245,18 +168,12 @@
   }
 
   @media (forced-colors: active) {
-    .main-nav {
-      background: Canvas;
-    }
-
-    .main-nav::before {
-      display: none;
+    .back-link {
+      border-color: ButtonText;
     }
 
     button,
     a.button,
-    .main-nav,
-    .main-nav a,
     .card,
     .address-fields,
     .smooth-field,
@@ -270,18 +187,12 @@
       border-color: CanvasText;
     }
 
-    #main-button {
-      border-radius: var(--radius-pill);
-      border-color: ButtonText;
-    }
-
     .card::after,
     .address-fields::after,
     .smooth-field::after,
     .empty::after,
     .feedback::after,
-    #main-button::after,
-    #main-button > div::after {
+    .back-link::after {
       display: none;
     }
 
@@ -293,7 +204,7 @@
 
     button:focus-visible,
     a.button:focus-visible,
-    .main-nav a:focus-visible,
+    .back-link:focus-visible,
     .smooth-field > :focus-visible {
       outline: 3px solid Highlight;
       outline-offset: 2px;

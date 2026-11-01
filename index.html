@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#111415">
         <title>Arbeidsoversikt | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="continuous-corners.css">
@@ -10,92 +11,101 @@
     <body>
         <header class="app-header">
             <div class="header-inner">
-                <img class="brand-logo" src="assets/Nettside%20for%20ALFRED%20MASKIN/3.png" alt="ALFRED MASKIN">
                 <div>
                     <p class="eyebrow">ALFRED MASKIN</p>
-                    <p class="app-title">Logg</p>
                 </div>
-                <span class="demo-badge">UTKAST</span>
+                <span class="demo-badge" title="Kun fiktive testdata">DEMO</span>
+                <a class="header-link" href="data.html">Data</a>
             </div>
         </header>
-        <nav class="main-nav" aria-label="Hovedmeny">
-            <a href="index.html" aria-current="page">
-                <img src="assets/home.svg" alt="" aria-hidden="true">
-                <span>Oversikt</span>
-            </a>
-            <a href="kunder.html">
-                <img src="assets/customers.svg" alt="" aria-hidden="true">
-                <span>Kunder</span>
-            </a>
-            <a href="historikk.html">
-                <img src="assets/history.svg" alt="" aria-hidden="true">
-                <span>Logg</span>
-            </a>
-            <a href="data.html">
-                <img src="assets/export.svg" alt="" aria-hidden="true">
-                <span>Data</span>
-            </a>
-        </nav>
-        <main>
-            <div class="page-heading">
+        <main class="home-main">
+            <div class="home-heading">
                 <h1>Oversikt</h1>
             </div>
 
-            <!-- DAGENS PLAN: Endre datoen og jobbkortet her. Alt er et fast eksempel. -->
-            <section aria-labelledby="daily-plan-heading">
-                <div class="daily-plan-header">
-                    <h2 id="daily-plan-heading" class="section-title">Dagens plan</h2>
-                    <p><time datetime="2026-10-30">30. oktober</time></p>
-                </div>    
-                <article class="card">
-                    <div class="row">
-                        <p class="eyebrow">STRØING</p>
-                        <span class="status">Planlagt</span>
-                    </div>
-                    <h3>Eksempelkunde A</h3>
-                    <p>Eksempelvegen 10</p>
-                    <p class="instructions">Strø foran garasjen og ved inngangen.</p>
-                    <div class="actions">
-                        <button type="button" disabled>Åpne jobb</button>
-                    </div>
-                </article>
+            <!-- OVERSIKT: Tallene er faste eksempler. Hver flis er en vanlig lenke. -->
+            <nav class="overview-grid" aria-label="Arbeidsoversikt">
+                <a class="overview-tile tile-blue" href="plan.html">
+                    <img class="tile-icon" src="assets/calendar.svg" alt="" aria-hidden="true">
+                    <span class="tile-count">1</span>
+                    <span class="tile-label">I dag</span>
+                </a>
+                <a class="overview-tile tile-red" href="runde.html">
+                    <img class="tile-icon" src="assets/rounds.svg" alt="" aria-hidden="true">
+                    <span class="tile-count">1</span>
+                    <span class="tile-label">Runder</span>
+                </a>
+                <a class="overview-tile tile-grey" href="kunder.html">
+                    <img class="tile-icon" src="assets/customers.svg" alt="" aria-hidden="true">
+                    <span class="tile-count">3</span>
+                    <span class="tile-label">Kunder</span>
+                </a>
+                <a class="overview-tile tile-slate" href="historikk.html">
+                    <img class="tile-icon" src="assets/history.svg" alt="" aria-hidden="true">
+                    <span class="tile-count">1</span>
+                    <span class="tile-label">Logg</span>
+                </a>
+            </nav>
+
+            <!-- FORTSETT: En tidligere startet kjøring, uten at det lagres noe i utkastet. -->
+            <a class="card continue-round" href="arbeid.html">
+                <span class="list-icon icon-amber" aria-hidden="true">
+                    <img src="assets/history.svg" alt="">
+                </span>
+                <span class="list-text">
+                    <span class="row-title">Fortsett brøyterunden</span>
+                    <span class="row-detail">1 av 3 stopp fullført</span>
+                </span>
+                <span class="chevron" aria-hidden="true"></span>
+            </a>
+
+            <!-- RUNDER: Kopier en hel li-blokk for å vise en ekstra runde. -->
+            <section id="runder" class="home-section" aria-labelledby="rounds-heading">
+                <h2 id="rounds-heading">Mine runder</h2>
+                <ul class="card grouped-list">
+                    <li>
+                        <a class="list-link" href="runde.html">
+                            <span class="list-icon icon-red" aria-hidden="true">
+                                <img src="assets/rounds.svg" alt="">
+                            </span>
+                            <span class="list-text">
+                                <span class="row-title">Brøyterunde</span>
+                                <span class="row-detail">3 adresser</span>
+                            </span>
+                            <span class="chevron" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                </ul>
             </section>
 
-            <!-- FASTE RUNDER: Disse brukes om igjen, uavhengig av dato. -->
-            <section aria-labelledby="fixed-rounds-heading">
-                <h2 id="fixed-rounds-heading" class="section-title">Faste runder</h2>
-
-                <div class="toolbar">
-                    <a class="button" id="main-button" href="runde.html">Ny runde
-                        <div>
-                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                    </a>
+            <!-- DAGENS PLAN: Et fast eksempel med samme dato som plan.html. -->
+            <section class="home-section" aria-labelledby="today-heading">
+                <div class="section-heading">
+                    <h2 id="today-heading">Dagens plan</h2>
+                    <time datetime="2026-10-30">30. oktober</time>
                 </div>
-                <div class="card-grid">
-                    <!-- Endre rundenavnet og antall adresser rett i dette kortet. -->
-                    <article class="card">
-                        <h3>Brøyterunde</h3>
-                        <p>3 adresser</p>
-                        <div class="actions">
-                            <a class="button primary" href="arbeid.html">Åpne runde</a>
-                            <a class="button" href="runde.html">Rediger</a>
-                        </div>
-                    </article>
-                </div>
+                <ul class="card grouped-list">
+                    <li>
+                        <a class="list-link" href="plan.html#jobb-a">
+                            <span class="list-icon icon-blue" aria-hidden="true">
+                                <img src="assets/calendar.svg" alt="">
+                            </span>
+                            <span class="list-text">
+                                <span class="row-title">Eksempelkunde A</span>
+                                <span class="row-detail">Strøing · Eksempelvegen 10</span>
+                            </span>
+                            <span class="chevron" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                </ul>
             </section>
-
-            <h2 class="section-title">Tidligere kjøringer</h2>
-            <!-- Dette er et fast eksempel, ikke en lagret kjøring. -->
-            <article class="card row">
-                <div>
-                    <h3>Brøyterunde</h3>
-                    <p>1 av 3 fullført</p>
-                </div>
-                <a class="button" href="arbeid.html">Åpne</a>
-            </article>
         </main>
+
+        <!-- FAST PLUSSKNAPP: En vanlig lenke til rundeutkastet. -->
+        <a class="floating-add" href="runde.html" aria-label="Ny runde" title="Ny runde">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </a>
     </body>
 </html>

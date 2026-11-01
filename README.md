@@ -7,7 +7,8 @@ Dette er nå kun et designutkast. Ingen JavaScript eller pakker er i bruk.
 Åpne `index.html` direkte i nettleseren, eller bruk Live Server i VS Code.
 Endre HTML/CSS, lagre og oppdater nettleseren.
 
-- `index.html`: rundekort og eksempel på en tidligere kjøring.
+- `index.html`: oversiktsfliser, en pågående kjøring og grupperte lister.
+- `plan.html`: en fiktiv planlagt jobb med adresse og instruksjoner.
 - `kunder.html`: tre fiktive kundekort.
 - `kunde.html`: kundeskjema og synlige adressefelt.
 - `runde.html`: runde og tre stopp. Flytt hele `li`-blokker for å endre rekkefølgen.
@@ -15,10 +16,26 @@ Endre HTML/CSS, lagre og oppdater nettleseren.
 - `historikk.html`: et fast historikkort.
 - `data.html`: plassholdere for sikkerhetskopi og eksport.
 - `style.css`: farger, størrelser og layout for alle sidene.
-- `continuous-corners.css`: G2-hjørner på kort, knapper, navigasjon og felt.
+- `continuous-corners.css`: G2-hjørner på kort, knapper og felt.
 
 Kort og felter ligger direkte i HTML-filene. Kommentarene viser hvilke blokker du kan kopiere.
-Header og meny er gjentatt i hver fil; endre dem i alle sidene ved behov.
+Headeren er gjentatt i hver fil; endre den i alle sidene ved behov.
+
+## Utseende og første side
+
+Startskjermen bruker Påminnelser som visuell referanse: mørk bakgrunn,
+fargede oversiktsfliser og rader samlet i ett kort. De andre sidene deler
+de samme mørke fargene og feltene.
+Paletten bruker koksgrå flater, dempet stålblått, rustrødt og oliven.
+
+Fargene endres i variablene øverst i `style.css`. Stilene for startskjermen
+er samlet under kommentaren «Påminnelser-inspirert startside».
+Rediger tekst, lenker og tall direkte i `index.html`. Tallene teller ikke
+automatisk, og 30. oktober er en fast eksempeldato i både oversikten og planen.
+En rad i en gruppe er én vanlig lenke. Kopier en hel `li`-blokk for flere rader.
+
+Vi designer fortsatt med separate HTML-sider. Senere kan skjermene kobles
+sammen med JavaScript til én side, samtidig som HTML og CSS beholdes.
 
 ## Kontinuerlige hjørner
 
@@ -44,15 +61,13 @@ Fargene ligger samlet under kommentaren `GLASSKANTER` øverst i `style.css`:
 - `--glass-edge-opacity`: total styrke. Bruk 0 for å skjule kantlyset.
 
 `--glass-edge-paint` blander disse fargene. Maskene gjør at bare omrisset males;
-bakgrunnen inni komponenten endres ikke. `.card` og `Ny runde` bruker glasslyset.
-Andre knapper og navigasjonen har ingen dekorativ kant. Felt og feltgrupper
+bakgrunnen inni komponenten endres ikke. Kort og tilbakeknapper bruker glasslyset.
+Vanlige knapper har ingen dekorativ kant. Felt og feltgrupper
 har en ensfarget kant som styres av `--color-input-border`.
-Den mørke markøren i navigasjonen viser hvilken side som er valgt.
 De gamle variablene `--card-border-color` og `--main-button-border-color` er erstattet
 av denne felles paletten. Vanlige `border-color`-regler styrer ikke SVG-kanten.
 
-`Ny runde` beholder ekte halvsirkler i endene, og pilknappen beholder sirkelformen.
-Begge bruker vanlig CSS-avrunding og egne SVG-omriss for glasskanten. Native avkrysningsbokser og
+Den blå plussknappen bruker vanlig CSS-avrunding. Native avkrysningsbokser og
 fremdriftsindikatorer beholder vanlig nettleserutseende.
 
 Endre fortsatt farger og radiusverdier i `style.css`. Selve maskeringen er samlet
@@ -61,28 +76,19 @@ en enkel kant som følger hjørnene. Vanlige sirkler og avkrysningsbokser behold
 Dette er vår G2-tilnærming, ikke Apples eksakte geometri. Ingen JavaScript er lagt til.
 Nettlesere uten støtte for masketypen beholder avrundingen fra `style.css`.
 
-## Glidende navigasjon
+## Navigasjon og plussknapp
 
-Den aktive pillen glir mellom menypunktene med CSS. Bruk Live Server for å se animasjonen
-mellom sidene. Direkte åpning av HTML-filene viser fortsatt menyen, men uten denne animasjonen.
+Oversiktsflisene og radene på startsiden brukes til navigasjon.
+Undersidene har vanlige tilbake-lenker. «Data» øverst på startsiden åpner
+sikkerhetskopi- og eksportsiden. Bunnmenyen og animasjonskoden er fjernet.
+Tilbake-lenkene vises som runde knapper med `assets/back.svg`, kortenes
+bakgrunnsfarge og samme glasskant. Målet og den tilgjengelige teksten ligger i HTML.
 
-I `style.css` finner du `--nav-slide-duration: 380ms` øverst. Lavere tall gir raskere glidning.
-Selve animasjonsreglene er merket «Sliding navbar». Det er fortsatt ingen JavaScript i prosjektet.
-`view-transition-name: none` på `:root` hindrer at hele siden blir tatt som et
-stort øyeblikksbilde ved sideskift. Bare de navngitte delene i navigasjonen tas
-med i animasjonen. Å skjule `view-transition-old(root)` ga fortsatt dette ekstra
-arbeidet og svært få oppdateringer i WebKit-testen.
-Bare markøren flytter seg. Menyteksten står stille, og navigasjonen bruker ikke
-bakgrunnsblur. Markøren har vanlig CSS-avrunding uten en egen SVG-maske for å
-redusere arbeidet ved sideskift på telefoner.
-Selve menylinjen har ingen formmaske rundt lenkene. Bakgrunnen bruker en egen
-maskert `::before` under lenkene. Endringen skal hindre
-at bakgrunnen forsvinner når nettleseren tar øyeblikksbilder av de animerte delene.
-Dette må også bekreftes på telefonen.
-På mobil er markørens bredde og høyde låst under overgangen, slik at bare
-posisjonen animeres. Beregningen ligger ved `view-transition-group(nav-highlight)`
-i `style.css` og må følge menyens marger, padding og mellomrom hvis de endres.
-Nettlesere uten støtte bytter side normalt. Redusert bevegelse i enhetsinnstillingene slår av animasjonen.
+Den blå plussknappen ligger fast nederst til høyre på startsiden og åpner
+`runde.html`. Den har teksten «Ny runde» for skjermlesere og ved musepeker.
+Knappen er 52 × 52 CSS-piksler, med et 28-pikslers plussikon.
+Knappen oppretter ikke data ennå; den åpner det statiske rundeutkastet.
+Utseendet endres under `.floating-add` i `style.css`.
 
 ## Hva virker?
 
