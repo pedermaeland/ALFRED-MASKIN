@@ -7,117 +7,589 @@
         <title>Arbeidsoversikt | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="continuous-corners.css">
-        <script src="press.js" defer></script>
+        <script src="js/navigation.js" defer></script>
+        <script src="js/press.js" defer></script>
+        <script src="js/arbeid.js" defer></script>
+        <script src="js/instructions.js" defer></script>
     </head>
     <body>
-        <header class="app-header">
-            <div class="header-inner">
-                <div>
-                    <p class="eyebrow">ALFRED MASKIN</p>
+        <div class="app-shell">
+            <header class="app-header">
+                <div class="header-inner">
+                    <div>
+                        <p class="eyebrow">ALFRED MASKIN</p>
+                    </div>
+                    <span class="demo-badge" title="Kun fiktive testdata">DEMO</span>
+                    <a class="header-link" href="#data" id="data-link">Data</a>
                 </div>
-                <span class="demo-badge" title="Kun fiktive testdata">DEMO</span>
-                <a class="header-link" href="data.html">Data</a>
-            </div>
-        </header>
-        <main class="home-main">
-            <div class="home-heading">
-                <h1 class="text-container">
-                    <span class="reveal-text">Oversikt</span>
-                </h1>
-            </div>
+            </header>
 
-            <!-- FORTSETT: En tidligere startet kjøring, uten at det lagres noe i utkastet. -->
-            <a class="card continue-round" href="arbeid.html">
-                <span class="list-icon icon-amber" aria-hidden="true">
-                    <img src="assets/rounds.svg" alt="">
-                </span>
-                <span class="list-text">
-                    <span class="row-detail">Pågående runde</span>
-                    <span class="row-title">Fortsett brøyterunden</span>
-                    <span class="row-detail">Neste stopp · Testbakken 22</span>
-                    <span class="round-progress">
-                        <span class="round-segments" aria-hidden="true">
-                            <span class="segment-done"></span>
-                            <span class="segment-current"></span>
-                            <span></span>
+            <main>
+                <!-- ARBEIDSOVERSIKT -->
+                <section id="oversikt" class="home-main" data-screen data-title="Arbeidsoversikt | ALFRED MASKIN">
+                    <div class="home-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Oversikt</span>
+                        </h1>
+                    </div>
+
+                    <!-- FORTSETT: En tidligere startet kjøring, uten at det lagres noe i utkastet. -->
+                    <a class="card continue-round" href="#arbeid">
+                        <span class="list-icon icon-amber" aria-hidden="true">
+                            <img src="assets/rounds.svg" alt="">
                         </span>
-                        <span class="row-detail">1 av 3 stopp fullført</span>
-                    </span>
-                </span>
-                <span class="chevron" aria-hidden="true"></span>
-            </a>
-
-            <!-- OVERSIKT: Tallene er faste eksempler. Hver flis er en vanlig lenke. -->
-            <nav class="overview-grid" aria-label="Arbeidsoversikt">
-                <a class="overview-tile tile-blue" href="plan.html">
-                    <img class="tile-icon" src="assets/calendar.svg" alt="" aria-hidden="true">
-                    <span class="tile-count">1</span>
-                    <span class="tile-label">I dag</span>
-                </a>
-                <a class="overview-tile tile-red" href="runde.html">
-                    <img class="tile-icon" src="assets/rounds.svg" alt="" aria-hidden="true">
-                    <span class="tile-count">1</span>
-                    <span class="tile-label">Runder</span>
-                </a>
-                <a class="overview-tile tile-grey" href="kunder.html">
-                    <img class="tile-icon" src="assets/customers.svg" alt="" aria-hidden="true">
-                    <span class="tile-count">3</span>
-                    <span class="tile-label">Kunder</span>
-                </a>
-                <a class="overview-tile tile-slate" href="historikk.html">
-                    <img class="tile-icon" src="assets/history.svg" alt="" aria-hidden="true">
-                    <span class="tile-count">1</span>
-                    <span class="tile-label">Logg</span>
-                </a>
-            </nav>
-
-            <!-- RUNDER: Kopier en hel li-blokk for å vise en ekstra runde. -->
-            <section id="runder" class="home-section" aria-labelledby="rounds-heading">
-                <h2 id="rounds-heading">Mine runder</h2>
-                <ul class="card grouped-list">
-                    <li>
-                        <a class="list-link" href="runde.html">
-                            <span class="list-icon icon-red" aria-hidden="true">
-                                <img src="assets/rounds.svg" alt="">
+                        <span class="list-text">
+                            <span class="row-detail">Pågående runde</span>
+                            <span class="row-title">Fortsett brøyterunden</span>
+                            <span class="row-detail">Neste stopp · Testbakken 22</span>
+                            <span class="round-progress">
+                                <span class="round-segments" aria-hidden="true">
+                                    <span class="segment-done"></span>
+                                    <span class="segment-current"></span>
+                                    <span></span>
+                                </span>
+                                <span class="row-detail">1 av 3 stopp fullført</span>
                             </span>
-                            <span class="list-text">
-                                <span class="row-title">Brøyterunde</span>
-                                <span class="row-detail">3 adresser</span>
-                            </span>
-                            <span class="chevron" aria-hidden="true"></span>
+                        </span>
+                        <span class="chevron" aria-hidden="true"></span>
+                    </a>
+
+                    <!-- OVERSIKT: Tallene er faste eksempler. Hver flis er en vanlig lenke. -->
+                    <nav class="overview-grid" aria-label="Arbeidsoversikt">
+                        <a class="overview-tile tile-blue" href="#plan">
+                            <img class="tile-icon" src="assets/calendar.svg" alt="" aria-hidden="true">
+                            <span class="tile-count">1</span>
+                            <span class="tile-label">I dag</span>
                         </a>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- DAGENS PLAN: Et fast eksempel med samme dato som plan.html. -->
-            <section class="home-section" aria-labelledby="today-heading">
-                <div class="section-heading">
-                    <h2 id="today-heading">Dagens plan</h2>
-                    <time datetime="2026-10-30">30. oktober</time>
-                </div>
-                <ul class="card grouped-list">
-                    <li>
-                        <a class="list-link" href="plan.html#jobb-a">
-                            <span class="list-icon icon-blue" aria-hidden="true">
-                                <img src="assets/calendar.svg" alt="">
-                            </span>
-                            <span class="list-text">
-                                <span class="row-title">Eksempelkunde A</span>
-                                <span class="row-detail">Strøing · Eksempelvegen 10</span>
-                            </span>
-                            <span class="chevron" aria-hidden="true"></span>
+                        <a class="overview-tile tile-red" href="#runde">
+                            <img class="tile-icon" src="assets/rounds.svg" alt="" aria-hidden="true">
+                            <span class="tile-count">1</span>
+                            <span class="tile-label">Runder</span>
                         </a>
-                    </li>
-                </ul>
-            </section>
-        </main>
+                        <a class="overview-tile tile-grey" href="#kunder">
+                            <img class="tile-icon" src="assets/customers.svg" alt="" aria-hidden="true">
+                            <span class="tile-count">3</span>
+                            <span class="tile-label">Kunder</span>
+                        </a>
+                        <a class="overview-tile tile-slate" href="#logg">
+                            <img class="tile-icon" src="assets/history.svg" alt="" aria-hidden="true">
+                            <span class="tile-count">1</span>
+                            <span class="tile-label">Logg</span>
+                        </a>
+                    </nav>
 
-        <!-- FAST PLUSSKNAPP: En vanlig lenke til rundeutkastet. -->
-        <a class="floating-add" href="runde.html" aria-label="Ny runde" title="Ny runde">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-        </a>
+                    <!-- RUNDER: Kopier en hel li-blokk for å vise en ekstra runde. -->
+                    <section id="runder" tabindex="-1" class="home-section" aria-labelledby="rounds-heading">
+                        <h2 id="rounds-heading">Mine runder</h2>
+                        <ul class="card grouped-list">
+                            <li>
+                                <a class="list-link" href="#runde">
+                                    <span class="list-icon icon-red" aria-hidden="true">
+                                        <img src="assets/rounds.svg" alt="">
+                                    </span>
+                                    <span class="list-text">
+                                        <span class="row-title">Brøyterunde</span>
+                                        <span class="row-detail">3 adresser</span>
+                                    </span>
+                                    <span class="chevron" aria-hidden="true"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- DAGENS PLAN: Et fast eksempel med samme dato som på planskjermen. -->
+                    <section class="home-section" aria-labelledby="today-heading">
+                        <div class="section-heading">
+                            <h2 id="today-heading">Dagens plan</h2>
+                            <time datetime="2026-10-30">30. oktober</time>
+                        </div>
+                        <ul class="card grouped-list">
+                            <li>
+                                <a class="list-link" href="#jobb-a">
+                                    <span class="list-icon icon-blue" aria-hidden="true">
+                                        <img src="assets/calendar.svg" alt="">
+                                    </span>
+                                    <span class="list-text">
+                                        <span class="row-title">Eksempelkunde A</span>
+                                        <span class="row-detail">Strøing · Eksempelvegen 10</span>
+                                    </span>
+                                    <span class="chevron" aria-hidden="true"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- FAST PLUSSKNAPP: En vanlig lenke til rundeutkastet. -->
+                    <a class="floating-add" href="#runde" aria-label="Ny runde" title="Ny runde">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </a>
+                </section>
+
+                <!-- DAGENS PLAN -->
+                <section id="plan" data-screen hidden data-title="Dagens plan | ALFRED MASKIN">
+                    <a class="back-link" href="#oversikt" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Dagens plan</span>
+                        </h1>
+                        <p><time datetime="2026-10-30">30. oktober</time></p>
+                    </div>
+                    <!-- Et fiktivt jobbkort. Ingen registrering eller lagring er aktivert. -->
+                    <article id="jobb-a" tabindex="-1" class="card stack">
+                        <div class="row">
+                            <span class="eyebrow">Strøing</span>
+                            <span class="status">Planlagt</span>
+                        </div>
+                        <div>
+                            <h2>Eksempelkunde A</h2>
+                            <p class="muted">Eksempelvegen 10</p>
+                        </div>
+                        <p class="instructions" id="instructions-a">Strø foran garasjen og ved inngangen.</p>
+                        <button type="button" class="primary" disabled>Start jobb</button>
+                    </article>
+                </section>
+
+                <!-- REDIGER RUNDE -->
+                <section id="runde" data-screen hidden data-title="Rediger runde | ALFRED MASKIN">
+                    <a class="back-link" href="#oversikt" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Rundedetaljer</span>
+                        </h1>
+                    </div>
+                    <div class="card stack">
+                        <label>
+                            Navn på runden
+                            <span class="smooth-field">
+                                <input name="name" value="Brøyterunde" maxlength="120">
+                            </span>
+                        </label>
+                        <h2>Kjørerekkefølge</h2>
+                        <ol class="stop-list">
+                            <li class="card round-stop">
+                                <section class="heading">
+                                    <strong>Eksempelkunde A</strong>
+                                    <p>Eksempelvegen 10</p>
+                                </section>
+                                <div class="actions">
+                                    <button type="button" disabled aria-label="Flytt opp">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" disabled aria-label="Flytt ned">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 4V20M12 20L18 14M12 20L6 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" disabled aria-label="Fjern">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 3H15M3 6H21M19 6L18.2987 16.5193C18.1935 18.0975 18.1409 18.8867 17.8 19.485C17.4999 20.0118 17.0472 20.4353 16.5017 20.6997C15.882 21 15.0911 21 13.5093 21H10.4907C8.90891 21 8.11803 21 7.49834 20.6997C6.95276 20.4353 6.50009 20.0118 6.19998 19.485C5.85911 18.8867 5.8065 18.0975 5.70129 16.5193L5 6M10 10.5V15.5M14 10.5V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="card round-stop">
+                                <section class="heading">
+                                    <strong>Eksempelkunde B</strong>
+                                    <p>Testbakken 22</p>
+                                </section>
+                                <div class="actions">
+                                    <button type="button" disabled aria-label="Flytt opp">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" disabled aria-label="Flytt ned">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 4V20M12 20L18 14M12 20L6 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" disabled aria-label="Fjern">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 3H15M3 6H21M19 6L18.2987 16.5193C18.1935 18.0975 18.1409 18.8867 17.8 19.485C17.4999 20.0118 17.0472 20.4353 16.5017 20.6997C15.882 21 15.0911 21 13.5093 21H10.4907C8.90891 21 8.11803 21 7.49834 20.6997C6.95276 20.4353 6.50009 20.0118 6.19998 19.485C5.85911 18.8867 5.8065 18.0975 5.70129 16.5193L5 6M10 10.5V15.5M14 10.5V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="card round-stop">
+                                <section class="heading">
+                                    <strong>Eksempelkunde C</strong>
+                                    <p>Demotunet 3</p>
+                                </section>
+                                <div class="actions">
+                                    <button type="button" disabled aria-label="Flytt opp">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 20V4M12 4L6 10M12 4L18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" disabled aria-label="Flytt ned">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 4V20M12 20L18 14M12 20L6 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" disabled aria-label="Fjern">
+                                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 3H15M3 6H21M19 6L18.2987 16.5193C18.1935 18.0975 18.1409 18.8867 17.8 19.485C17.4999 20.0118 17.0472 20.4353 16.5017 20.6997C15.882 21 15.0911 21 13.5093 21H10.4907C8.90891 21 8.11803 21 7.49834 20.6997C6.95276 20.4353 6.50009 20.0118 6.19998 19.485C5.85911 18.8867 5.8065 18.0975 5.70129 16.5193L5 6M10 10.5V15.5M14 10.5V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </li>
+                        </ol>
+                        <label>
+                            Legg til arbeidsadresse
+                            <span class="smooth-field">
+                                <select disabled>
+                                    <option>Velg adresse</option>
+                                </select>
+                            </span>
+                        </label>
+                        <button type="button" disabled>Legg til adresse</button>
+                        <div class="actions">
+                            <button type="button" disabled class="primary">Lagre runde</button>
+                            <a class="button" href="#oversikt">Til rundene</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- KUNDER -->
+                <section id="kunder" data-screen hidden data-title="Kunder | ALFRED MASKIN">
+                    <a class="back-link" href="#oversikt" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Kunder</span>
+                        </h1>
+                    </div>
+                    <div class="toolbar">
+                        <a class="button primary" href="#kunde">Ny kunde</a>
+                    </div>
+                    <div class="filters">
+                        <label>
+                            Søk
+                            <span class="smooth-field">
+                                <input type="search" placeholder="Navn eller adresse" disabled>
+                            </span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" disabled>
+                            Vis arkiverte
+                        </label>
+                    </div>
+                    <!-- Kopier en hel article-blokk hvis du vil legge til flere visuelle eksempler. -->
+                    <div class="stack">
+                        <article class="card">
+                            <h2>Eksempelkunde A</h2>
+
+                            <p>Eksempelvegen 10</p>
+                            <div class="actions">
+                                <a class="button" href="#kunde">Åpne</a>
+                                <a class="button" href="#logg">Historikk</a>
+                                <button type="button" disabled>Arkiver</button>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <h2>Eksempelkunde B</h2>
+
+                            <p>Testbakken 22</p>
+                            <div class="actions">
+                                <a class="button" href="#adresse-b">Åpne</a>
+                                <a class="button" href="#logg">Historikk</a>
+                                <button type="button" disabled>Arkiver</button>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <h2>Eksempelkunde C</h2>
+
+                            <p>Demotunet 3</p>
+                            <div class="actions">
+                                <a class="button" href="#kunde">Åpne</a>
+                                <a class="button" href="#logg">Historikk</a>
+                                <button type="button" disabled>Arkiver</button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- KUNDEDETALJER -->
+                <section id="kunde" data-screen hidden data-title="Kundedetaljer | ALFRED MASKIN">
+                    <a class="back-link" href="#kunder" aria-label="Tilbake til kunder" title="Tilbake til kunder">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Kundedetaljer</span>
+                        </h1>
+                    </div>
+                    <!-- Vanlige HTML-felt. Endre value for å endre eksempelteksten. -->
+                    <div class="card stack">
+                        <label>
+                            Navn
+                            <span class="smooth-field">
+                                <input name="name" value="Eksempelkunde A" maxlength="120">
+                            </span>
+                        </label>
+                        <div class="form-grid">
+                            <label>
+                                Telefon (valgfritt)
+                                <span class="smooth-field">
+                                    <input name="phone" type="tel" maxlength="50">
+                                </span>
+                            </label>
+                            <label>
+                                E-post (valgfritt)
+                                <span class="smooth-field">
+                                    <input name="email" type="email" maxlength="200">
+                                </span>
+                            </label>
+                        </div>
+                        <label>
+                            Kundenotat (valgfritt)
+                            <span class="smooth-field">
+                                <textarea name="notes" rows="2"></textarea>
+                            </span>
+                        </label>
+                        <!-- Kopier hele fieldset-blokken hvis du vil vise flere adresser. -->
+                        <fieldset class="address-fields">
+                            <legend>Arbeidsadresse</legend>
+                            <label>
+                                Adresse
+                                <span class="smooth-field">
+                                    <input name="addressLabel" value="Eksempelvegen 10" required maxlength="200">
+                                </span>
+                            </label>
+                            <label>
+                                Instruksjoner
+                                <span class="smooth-field">
+                                    <textarea id="edit-instructions-a" name="instructions" rows="2" maxlength="2000"></textarea>
+                                </span>
+                            </label>
+                            <button type="button" id="save-instructions-a">Lagre instruksjoner</button>
+                            <p id="instructions-status-a" role="status" hidden></p>
+                            <div class="service-options">
+                                <label class="checkbox">
+                                    <input type="checkbox" name="services" value="Brøyting" checked>
+                                    Brøyting
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="services" value="Strøing">
+                                    Strøing
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="services" value="Annet arbeid">
+                                    Annet arbeid
+                                </label>
+                            </div>
+                        </fieldset>
+                        <button type="button" disabled>Legg til en adresse</button>
+                        <div class="actions">
+                            <button type="button" disabled class="primary">Lagre kunde</button>
+                            <a class="button" href="#kunder">Til kundene</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REGISTRER ARBEID -->
+                <section id="arbeid" data-screen hidden data-title="Registrer arbeid | ALFRED MASKIN">
+                    <a class="back-link" href="#oversikt" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Brøyterunde</span>
+                        </h1>
+                    </div>
+                    <div class="round-position">
+                        <span class="round-position-label">Stopp 2 av 3</span>
+                        <span class="round-progress">
+                            <span class="round-segments" aria-hidden="true">
+                                <span class="segment-done"></span>
+                                <span class="segment-current"></span>
+                                <span></span>
+                            </span>
+                            <span class="row-detail">1 av 3 stopp fullført</span>
+                        </span>
+                    </div>
+                    <article class="card work-card">
+                        <span class="status pending">Gjenstår</span>
+                        <h2>Eksempelkunde B</h2>
+                        <p class="address">Testbakken 22</p>
+                        <p class="instructions" id="instructions-b">Legg snøen på venstre side.</p>
+                        <p><a class="button" href="#adresse-b">Rediger instruksjoner</a></p>
+                        <!-- Prøvevisningen viser hva knappen leser fra skjemaet. -->
+                        <div class="stack">
+                            <label id="native-service">
+                                Tjeneste
+                                <span class="smooth-field">
+                                    <select name="service" id="service">
+                                        <option>Brøyting</option>
+                                        <option>Strøing</option>
+                                        <option>Annet arbeid</option>
+                                    </select>
+                                </span>
+                            </label>
+                            <div class="service-field" id="service-field" hidden>
+                                <span id="service-label">Tjeneste</span>
+                                <button type="button" id="open-service" aria-haspopup="dialog" aria-labelledby="service-label service-value">
+                                    <span id="service-value">Brøyting</span>
+                                    <span class="chevron" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <dialog class="service-sheet" id="service-sheet" aria-labelledby="service-sheet-title">
+                                <h2 id="service-sheet-title">Velg tjeneste</h2>
+                                <div class="service-options" id="service-choices"></div>
+                                <form method="dialog">
+                                    <button type="submit">Avbryt</button>
+                                </form>
+                            </dialog>
+                            <label>
+                                Utført dato og klokkeslett
+                                <span class="smooth-field">
+                                    <input type="datetime-local" id="date-time" value="2026-10-30T08:00">
+                                </span>
+                            </label>
+                            <details class="optional-work">
+                                <summary>
+                                    <span>Notat og varighet</span>
+                                    <span class="chevron" aria-hidden="true"></span>
+                                </summary>
+                                <div class="stack optional-fields">
+                                    <label>
+                                        Minutter (valgfritt)
+                                        <span class="smooth-field">
+                                            <input type="number" id="session-length" min="0" placeholder="F.eks. 15">
+                                        </span>
+                                    </label>
+                                    <label>
+                                        Notat (valgfritt)
+                                        <span class="smooth-field">
+                                            <textarea rows="3" placeholder="" id="note-text"></textarea>
+                                        </span>
+                                    </label>
+                                </div>
+                            </details>
+                            <button type="button" id="save-work" class="primary">Se prøvevisning</button>
+                            <p id="work-preview" class="work-preview" role="status"></p>
+                        </div>
+                    </article>
+                    <h2 class="section-title">Historikk på adressen</h2>
+                    <p class="empty">Ingen tidligere jobber.</p>
+                </section>
+
+                <!-- ADRESSEINSTRUKSJONER FOR EKSEMPELKUNDE B -->
+                <section id="adresse-b" data-screen hidden data-title="Adresseinstruksjoner | ALFRED MASKIN">
+                    <a class="back-link" href="#arbeid" aria-label="Tilbake til arbeid" title="Tilbake til arbeid">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">Adresseinstruksjoner</h1>
+                        <p>Eksempelkunde B · Testbakken 22</p>
+                    </div>
+                    <div class="card stack">
+                        <label>
+                            Instruksjoner
+                            <span class="smooth-field">
+                                <textarea id="edit-instructions-b" rows="3" maxlength="2000"></textarea>
+                            </span>
+                        </label>
+                        <button type="button" class="primary" id="save-instructions-b">Lagre instruksjoner</button>
+                        <p id="instructions-status-b" role="status" hidden></p>
+                    </div>
+                </section>
+
+                <!-- LOGG -->
+                <section id="logg" data-screen hidden data-title="Logg | ALFRED MASKIN">
+                    <a class="back-link" href="#oversikt" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Logg</span>
+                        </h1>
+                    </div>
+                    <div class="filters">
+                        <label>
+                            Kunde
+                            <span class="smooth-field">
+                                <select disabled>
+                                    <option>Alle kunder</option>
+                                </select>
+                            </span>
+                        </label>
+                        <label>
+                            Dato
+                            <span class="smooth-field">
+                                <input type="date" disabled>
+                            </span>
+                        </label>
+                        <label>
+                            Tjeneste
+                            <span class="smooth-field">
+                                <select disabled>
+                                    <option>Alle tjenester</option>
+                                </select>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="stack">
+                        <!-- Fast eksempel. Endre navn, tjeneste, dato og notat her. -->
+                        <article class="card">
+                            <div class="row">
+                                <h3>Eksempelkunde A</h3>
+                                <span class="status completed">Brøyting</span>
+                            </div>
+                            <p>Eksempelvegen 10</p>
+                            <p>
+                                <strong>30.10.2026, 07:30</strong>
+                                · 15 min
+                            </p>
+                            <p class="instructions">Brøytet foran garasjen.</p>
+
+                        </article>
+                    </div>
+                </section>
+
+                <!-- DATA OG SIKKERHETSKOPI -->
+                <section id="data" data-screen hidden data-title="Data og sikkerhetskopi | ALFRED MASKIN">
+                    <a class="back-link" href="#oversikt" aria-label="Tilbake til oversikt" title="Tilbake til oversikt">
+                        <img src="assets/back.svg" alt="" aria-hidden="true">
+                    </a>
+                    <div class="page-heading">
+                        <h1 class="text-container" tabindex="-1">
+                            <span class="reveal-text">Data</span>
+                        </h1>
+                    </div>
+                    <div class="stack">
+                        <p class="muted">Lagring og eksport er ikke aktivert i utkastet.</p>
+                        <section class="card">
+                            <h2>Sikkerhetskopi</h2>
+
+                            <button type="button" disabled class="primary">Last ned sikkerhetskopi</button>
+                            <div class="stack restore-form">
+                                <label>
+                                    Velg sikkerhetskopi
+                                    <span class="smooth-field">
+                                        <input type="file" disabled>
+                                    </span>
+                                </label>
+                                <button type="button" disabled>Gjenopprett</button>
+                            </div>
+                        </section>
+                        <section class="card">
+                            <h2>Regneark</h2>
+
+                            <button type="button" disabled>Last ned CSV</button>
+                        </section>
+                    </div>
+                </section>
+            </main>
+        </div>
     </body>
 </html>

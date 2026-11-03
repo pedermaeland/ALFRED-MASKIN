@@ -1,109 +1,35 @@
-# ALFRED MASKIN: HTML/CSS-utkast
+# ALFRED MASKIN
 
-Dette er nå kun et designutkast. Ingen JavaScript eller pakker er i bruk.
+Arbeidsloggen er et utkast med fiktive data. Åpne `index.html` direkte i nettleseren, eller bruk Live Server i VS Code.
 
-## Åpne og rediger
+## Endre en skjerm
 
-Åpne `index.html` direkte i nettleseren, eller bruk Live Server i VS Code.
-Endre HTML/CSS, lagre og oppdater nettleseren.
+Alle åtte skjermene ligger i `index.html`. Søk etter en av ID-ene for å finne riktig blokk.
 
-- `index.html`: oversiktsfliser, en pågående kjøring og grupperte lister.
-- `plan.html`: en fiktiv planlagt jobb med adresse og instruksjoner.
-- `kunder.html`: tre fiktive kundekort.
-- `kunde.html`: kundeskjema og synlige adressefelt.
-- `runde.html`: runde og tre stopp. Flytt hele `li`-blokker for å endre rekkefølgen.
-- `arbeid.html`: eksempel på arbeidsregistrering.
-- `historikk.html`: et fast historikkort.
-- `data.html`: plassholdere for sikkerhetskopi og eksport.
-- `style.css`: farger, størrelser og layout for alle sidene.
-- `continuous-corners.css`: G2-hjørner på kort, knapper og felt.
+| ID | Skjerm |
+| --- | --- |
+| `oversikt` | Oversiktsfliser, pågående runde og dagens plan |
+| `plan` | Dagens plan |
+| `runde` | Rundedetaljer og kjørerekkefølge |
+| `kunder` | Kundeliste |
+| `kunde` | Kundeskjema |
+| `arbeid` | Arbeidsskjerm og prøvevisning |
+| `logg` | Eksempelhistorikk |
+| `data` | Sikkerhetskopi og eksport |
 
-Kort og felter ligger direkte i HTML-filene. Kommentarene viser hvilke blokker du kan kopiere.
-Headeren er gjentatt i hver fil; endre den i alle sidene ved behov.
+En skjerm er en `<section>` med `data-screen`. En lenke med `href="#runde"` åpner skjermen med `id="runde"`. En lenke kan også peke på noe inni skjermen. For eksempel åpner `#jobb-a` planen og hopper til jobbkortet. Alle skjermene deler samme topptekst.
 
-## Utseende og første side
+Farger og layout ligger i `style.css`. SVG-maskene for de kontinuerlige hjørnene på store kort og fliser ligger i `continuous-corners.css`.
 
-Startskjermen bruker Påminnelser som visuell referanse: mørk bakgrunn,
-fargede oversiktsfliser og rader samlet i ett kort. De andre sidene deler
-de samme mørke fargene og feltene.
-Paletten bruker koksgrå flater, dempet stålblått, rustrødt og oliven.
+## Hva gjør JavaScript?
 
-Fargene endres i variablene øverst i `style.css`. Stilene for startskjermen
-er samlet under kommentaren «Påminnelser-inspirert startside».
-Rediger tekst, lenker og tall direkte i `index.html`. Tallene teller ikke
-automatisk, og 30. oktober er en fast eksempeldato i både oversikten og planen.
-En rad i en gruppe er én vanlig lenke. Kopier en hel `li`-blokk for flere rader.
+Filene ligger i `js/`. De lastes med `defer` i HTML, slik at nettleseren leser HTML-en før koden prøver å finne knappene og feltene.
 
-Vi designer fortsatt med separate HTML-sider. Senere kan skjermene kobles
-sammen med JavaScript til én side, samtidig som HTML og CSS beholdes.
+- **`navigation.js`** leser delen av adressen etter `#` og bruker den til å finne skjermen. Den skjuler forrige skjerm med `hidden` og viser den nye. Det du har skrevet i feltene blir værende mens du bytter skjerm. `history.pushState` gir nettleserens Tilbake- og Frem-knapper et steg å gå til.
+- **`navigation.js`** måler også lenken du trykket på, før den skjules. En kopi av den gamle skjermen ligger bak mens `clip-path` åpner den nye skjermen fra lenkens form. Lenken og fargen tones ut i løpet av 90 ms. Selve åpningen tar 320 ms. Tilbakepilen bruker en horisontal slide på 310 ms. Bevegelsesreduksjon hopper rett til skjermen.
+- **`press.js`** legger CSS-klassen `is-pressed` på et element når du tar på det. Når du slipper eller begynner å rulle, fjernes klassen. Farge og skalering styres i `style.css`.
+- **`arbeid.js`** leser tjenesten og notatet når du trykker «Se prøvevisning». Den samler verdiene i et objekt som heter `visit` og viser dem ved knappen. `textContent` viser teksten som tekst, selv om notatet inneholder tegn som ligner HTML.
 
-## Kontinuerlige hjørner
+## Hva kan prøves nå?
 
-Alle sidene laster `continuous-corners.css` etter `style.css`. Den bruker
-`assets/continuous-corners.svg` som en ni-delt maske. Hjørnene beholder formen
-når kortet blir bredere eller høyere; hele SVG-en blir ikke strukket.
-`continuous-outline-*.svg`-filene tegner kantlinjer på kort og felt.
-Omrisset er kalibrert til ca. 0.5 CSS-piksler øverst, 0.2 på sidene og 0.3 nederst
-ved standard hjørnestørrelser. Ved svært små komponenter skaleres det ned.
-Ytterkanten holdes skarp, mens den indre kanten har en smal, myk overgang.
-En CSS-piksel kan dekke flere skjermpiksler, så disse delpikselbreddene gir
-finere linjer på skjermer med høy pikseltetthet.
-
-## Glasskanter
-
-Fargene ligger samlet under kommentaren `GLASSKANTER` øverst i `style.css`:
-
-- `--glass-edge-top`: lyst gjenskinn på toppen.
-- `--glass-edge-shoulder`: lyset rundt de øvre hjørnene.
-- `--glass-edge-side`: den mørkere, tynne kanten på sidene.
-- `--glass-edge-lower`: overgangen rundt de nedre hjørnene.
-- `--glass-edge-bottom`: svak refleks nederst.
-- `--glass-edge-opacity`: total styrke. Bruk 0 for å skjule kantlyset.
-
-`--glass-edge-paint` blander disse fargene. Maskene gjør at bare omrisset males;
-bakgrunnen inni komponenten endres ikke. Kort og tilbakeknapper bruker glasslyset.
-Vanlige knapper har ingen dekorativ kant. Felt og feltgrupper
-har en ensfarget kant som styres av `--color-input-border`.
-De gamle variablene `--card-border-color` og `--main-button-border-color` er erstattet
-av denne felles paletten. Vanlige `border-color`-regler styrer ikke SVG-kanten.
-
-Den blå plussknappen bruker vanlig CSS-avrunding. Native avkrysningsbokser og
-fremdriftsindikatorer beholder vanlig nettleserutseende.
-
-Endre fortsatt farger og radiusverdier i `style.css`. Selve maskeringen er samlet
-i den separate hjørnefilen. Felt ligger i en `smooth-field`-ramme for å kunne få
-en enkel kant som følger hjørnene. Vanlige sirkler og avkrysningsbokser beholder formen sin.
-Dette er vår G2-tilnærming, ikke Apples eksakte geometri. Ingen JavaScript er lagt til.
-Nettlesere uten støtte for masketypen beholder avrundingen fra `style.css`.
-
-## Navigasjon og plussknapp
-
-Oversiktsflisene og radene på startsiden brukes til navigasjon.
-Undersidene har vanlige tilbake-lenker. «Data» øverst på startsiden åpner
-sikkerhetskopi- og eksportsiden. Bunnmenyen og animasjonskoden er fjernet.
-Tilbake-lenkene vises som runde knapper med `assets/back.svg`, kortenes
-bakgrunnsfarge og samme glasskant. Målet og den tilgjengelige teksten ligger i HTML.
-
-Den blå plussknappen ligger fast nederst til høyre på startsiden og åpner
-`runde.html`. Den har teksten «Ny runde» for skjermlesere og ved musepeker.
-Knappen er 52 × 52 CSS-piksler, med et 28-pikslers plussikon.
-Knappen oppretter ikke data ennå; den åpner det statiske rundeutkastet.
-Utseendet endres under `.floating-add` i `style.css`.
-
-## Hva virker?
-
-Menylenker og forhåndsvisningslenker fungerer. Du kan prøve vanlige inndatafelt.
-Alle knapper som ville lagret, arkivert, filtrert eller eksportert er deaktivert.
-Eksempelhistorikken oppdateres ikke når du skriver i feltene.
-
-## Hva kommer senere?
-
-Kundelagring, runder, arbeidsregistrering, søk, filtrering, arkivering, sikkerhetskopi og offline-installasjon.
-Ingen av disse funksjonene er aktive nå. HTML-filer som åpnes lokalt trenger ikke nettverk,
-men dette er ikke en testet, installerbar offline-app for Alfreds telefon.
-
-## Tidligere kode
-
-JavaScript-versjonen er bevart i snapshots fra før overgangen til HTML/CSS, sammen med den tidligere HTML-en.
-Tidligere nettleserlagring er ikke slettet, men blir verken lest eller endret av dette utkastet.
-Kodesnapshots inneholder ikke nettleserens lagrede arbeidsdata.
+Navigasjon, felter og prøvevisning kan prøves med testdata. Å bytte skjerm beholder det du har skrevet, mens en oppdatering av nettleseren starter med eksempelverdiene igjen. Lagring, filtrering, eksport, sikkerhetskopi og installerbar offline-bruk er senere steg.

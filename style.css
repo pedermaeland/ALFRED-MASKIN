@@ -213,6 +213,7 @@ h1:focus {
 .header-inner {
   display: flex;
   align-items: center;
+  height: 4rem;
   gap: 1rem;
   max-width: var(--content-width);
   margin: auto;
@@ -554,7 +555,7 @@ h1:focus {
 main {
   max-width: var(--content-width);
   margin: auto;
-  padding: 1rem 1.25rem 4rem;
+  padding: 0.5rem 1.25rem 0;
 }
 
 .prototype-note {
@@ -769,7 +770,8 @@ textarea {
 }
 
 /* Dato bruker nettleserens datovelger, men samme boks som de andre filtrene. */
-.filters input[type="date"] {
+.filters input[type="date"],
+.work-card input[type="datetime-local"] {
   display: block;
   -webkit-appearance: none;
   appearance: none;
@@ -1113,6 +1115,24 @@ a.button.primary[href]:not([aria-disabled="true"]):is(:active, .is-pressed) {
 
 .header-link:is(:active, .is-pressed) {
   color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Feltene markerer trykk uten at teksten eller boksen flytter seg. */
+input:enabled:is(:active, .is-pressed),
+select:enabled:is(:active, .is-pressed),
+textarea:enabled:is(:active, .is-pressed) {
+  border-color: var(--color-focus);
+}
+
+input[type="checkbox"]:enabled:is(:active, .is-pressed) {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
+  background: var(--color-accent-hover);
 }
 
 .overview-tile:is(:active, .is-pressed) {
@@ -1157,12 +1177,23 @@ a.button.primary[href]:not([aria-disabled="true"]):is(:active, .is-pressed) {
     transition: scale var(--settle) var(--settle-ease);
   }
 
+  .continue-round:is(:active, .is-pressed),
   button:enabled:is(:active, .is-pressed),
   a.button[href]:not([aria-disabled="true"]):is(:active, .is-pressed),
   .back-link:is(:active, .is-pressed),
   .floating-add:is(:active, .is-pressed),
   .overview-tile:is(:active, .is-pressed) {
-    scale: 0.965;
+    scale: 0.95;
+    transition-duration: var(--press-in);
+    transition-timing-function: var(--press-ease);
+  }
+
+  .grouped-list {
+    transition: scale var(--settle) var(--settle-ease);
+  }
+
+  .grouped-list:has(.list-link:is(:active, .is-pressed)) {
+    scale: 0.99;
     transition-duration: var(--press-in);
     transition-timing-function: var(--press-ease);
   }
@@ -1207,6 +1238,169 @@ a.button.primary[href]:not([aria-disabled="true"]):is(:active, .is-pressed) {
 @keyframes showPreview {
   from {
     opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+[data-screen]:not(.home-main) {
+  padding-bottom: 4rem;
+}
+
+.app-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-background);
+}
+
+.app-shell.is-opening {
+  position: relative;
+  z-index: 2;
+}
+
+/* Den gamle skjermen ligger stille bak åpningen. */
+.screen-transition-previous {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-background);
+}
+
+.screen-transition-previous > .app-shell {
+  position: absolute;
+  left: 0;
+}
+
+/* Tilbakesliden har to kopier over den ekte skjermen. */
+.screen-slide {
+  z-index: 101;
+}
+
+.screen-slide-out {
+  z-index: 102;
+  box-shadow: -0.5rem 0 1.5rem rgba(0, 0, 0, 0.35);
+}
+
+/* Farge og kopi av lenken ligger over den nye skjermen inni åpningen. */
+.screen-transition-tint {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background-color: var(--color-hover-surface);
+}
+
+/* Kopien viser innholdet. Det ytre laget tegner fargen og formen. */
+.screen-transition-tint .screen-transition-source {
+  position: absolute;
+  inset: auto;
+  margin: 0;
+  max-width: none;
+  min-height: 0;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  scale: none;
+  filter: none;
+  -webkit-mask-box-image-source: none;
+}
+
+.screen-transition-source::after {
+  display: none;
+}
+
+/* TJENESTEVELGER */
+.service-field {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.service-field > button,
+.service-sheet #service-choices > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+  text-align: left;
+}
+
+.service-field > button {
+  background: var(--color-field);
+  border-color: var(--color-input-border);
+}
+
+.service-sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: min(100%, 28rem);
+  max-width: 100%;
+  max-height: 85dvh;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem 1.5rem 0 0;
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.service-sheet::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.service-sheet #service-choices {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+
+.service-sheet #service-choices > button {
+  background: var(--color-field);
+}
+
+.service-sheet #service-choices > button[aria-pressed="true"]::after {
+  content: "✓" / "";
+  color: var(--color-focus);
+}
+
+.service-sheet #service-choices > button:is(:active, .is-pressed) {
+  background: var(--color-hover-surface);
+}
+
+.service-sheet form > button {
+  width: 100%;
+}
+
+/* Arket glir opp mens bakgrunnen tones ned. */
+@media (prefers-reduced-motion: no-preference) {
+  .service-sheet[open] {
+    animation: service-sheet-rise 320ms cubic-bezier(0.22, 0.72, 0.24, 1) both;
+  }
+
+  .service-sheet[open]::backdrop {
+    animation: service-sheet-dim 200ms ease-out both;
+  }
+}
+
+@keyframes service-sheet-rise {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes service-sheet-dim {
+  from {
+    opacity: 0;
   }
 
   to {
