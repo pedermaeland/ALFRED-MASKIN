@@ -1,213 +1,52 @@
-/* =========================================================
-   G2-hjørner og glasskanter - ingen JavaScript
-
-   Kort og tilbakeknapper har glasskant. Felt har en ensfarget kant.
-   Endre glassfargene under GLASSKANTER i style.css.
-   Bakgrunner, tekst og layout styres fortsatt der.
-
-   SVG-maskene deler formen i ni felt. Hjørnene beholder formen
-   når en komponent blir større, i stedet for å bli strukket.
-   Omrissene bruker delpiksler: 0.5px topp, 0.2px sider, 0.3px bunn.
-   SVG-masken toner bare den indre kanten mykt ut.
-   Omrissene har 4x intern oppløsning for presise delpiksler i WebKit.
-   ========================================================= */
+/* G2-hjørner for kort og fliser. Andre elementer bruker vanlig border-radius. */
+.overview-tile {
+  corner-shape: var(--corner-shape);
+}
 
 @supports (-webkit-mask-box-image-source: url("assets/continuous-corners.svg")) {
-  /* 1. FORMER OG STØRRELSER */
-  button,
-  a.button,
-  .smooth-field,
   .card,
-  .overview-tile,
-  .address-fields,
-  .instructions,
-  .status,
-  .demo-badge,
-  .empty,
-  .feedback {
-    --smooth-corner: var(--radius-small);
-    --smooth-outline: url("assets/continuous-outline-small.svg");
-    --smooth-outline-slice: 192;
-    --edge-inset: 0px;
-
+  .overview-tile {
     border-radius: 0;
     corner-shape: round;
     -webkit-mask-box-image-source: url("assets/continuous-corners.svg");
     -webkit-mask-box-image-slice: 48 fill;
-    -webkit-mask-box-image-width: var(--smooth-corner);
+    -webkit-mask-box-image-width: var(--radius-medium);
     -webkit-mask-box-image-repeat: stretch;
   }
 
-  .card,
-  .overview-tile,
-  .address-fields,
-  .empty {
-    --smooth-corner: var(--radius-medium);
-    --smooth-outline: url("assets/continuous-outline-medium.svg");
-  }
-
-  .status,
-  .demo-badge {
-    --smooth-corner: 0.5rem;
-    --smooth-outline: url("assets/continuous-outline-tiny.svg");
-  }
-
-  .demo-badge {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  /* 2. KANTEN TEGNES PÅ ET EGET LAG
-     Den vanlige kanten er gjennomsiktig og holder plassen i layouten.
-     ::after maler bare omrisset. Midten er helt gjennomsiktig. */
-  button,
-  a.button,
-  .card,
-  .address-fields,
-  .demo-badge,
-  .empty,
-  .feedback {
-    --edge-inset: -1px;
-
+  /* Den vanlige kanten holder plassen. SVG-masken tegner glasskanten. */
+  .card {
     position: relative;
     border: 1px solid transparent;
   }
 
-  .smooth-field,
-  .status,
-  .instructions {
-    position: relative;
-  }
-
-  .smooth-field {
-    display: grid;
-    min-width: 0;
-    background: var(--color-field);
-  }
-
-  .card::after,
-  .address-fields::after,
-  .smooth-field::after,
-  .empty::after,
-  .feedback::after {
-    content: "";
-    position: absolute;
-    inset: var(--edge-inset);
-    pointer-events: none;
-    background: var(--color-input-border);
-    -webkit-mask-box-image-source: var(--smooth-outline);
-    -webkit-mask-box-image-slice: var(--smooth-outline-slice) fill;
-    -webkit-mask-box-image-width: var(--smooth-corner);
-    -webkit-mask-box-image-repeat: stretch;
-  }
-
-  /* Bare kortene får det retningsbestemte glasslyset. */
   .card::after {
-    background: var(--glass-edge-paint);
-    opacity: var(--glass-edge-opacity);
-  }
-
-  /* Rund tilbakeknapp med samme overflate og kantlys som kortene. */
-  .back-link {
-    border-color: transparent;
-  }
-
-  .back-link::after {
     content: "";
     position: absolute;
     inset: -1px;
-    border-radius: inherit;
     pointer-events: none;
     background: var(--glass-edge-paint);
     opacity: var(--glass-edge-opacity);
-    -webkit-mask-box-image-source: url("assets/continuous-outline-pill.svg");
+    -webkit-mask-box-image-source: url("assets/continuous-outline-medium.svg");
     -webkit-mask-box-image-slice: 192 fill;
-    -webkit-mask-box-image-width: 50%;
+    -webkit-mask-box-image-width: var(--radius-medium);
     -webkit-mask-box-image-repeat: stretch;
   }
+}
 
-  /* Feltgruppen må ikke klippe teksten i legend. */
-  .address-fields {
+@media (forced-colors: active) {
+  .card,
+  .overview-tile {
+    border-radius: var(--radius-medium);
+    corner-shape: round;
     -webkit-mask-box-image-source: none;
   }
 
-  .address-fields::after {
-    top: 0.65rem;
+  .card {
+    border-color: CanvasText;
   }
 
-  .smooth-field > input,
-  .smooth-field > select,
-  .smooth-field > textarea {
-    border-color: transparent;
-    border-radius: 0;
-    corner-shape: round;
-  }
-
-  /* Filknappen beholder formen sin, uten glasskant.
-     Vanlige avkrysningsbokser og fremdriftsindikatorer beholdes native. */
-  input[type="file"]::file-selector-button {
-    border-radius: 0;
-    -webkit-mask-box-image-source: url("assets/continuous-corners.svg");
-    -webkit-mask-box-image-slice: 48 fill;
-    -webkit-mask-box-image-width: var(--radius-small);
-    -webkit-mask-box-image-repeat: stretch;
-  }
-
-  /* 3. TASTATUR OG HØYKONTRAST
-     Kantlyset er dekorasjon. Blått fokus skal fortsatt være tydelig. */
-  button:focus-visible,
-  a.button:focus-visible,
-  .back-link:focus-visible,
-  .smooth-field:focus-within {
-    outline: none;
-    box-shadow: inset 0 0 0 3px var(--color-focus);
-  }
-
-  .smooth-field > :focus-visible {
-    outline: none;
-  }
-
-  @media (forced-colors: active) {
-    .back-link {
-      border-color: ButtonText;
-    }
-
-    button,
-    a.button,
-    .card,
-    .address-fields,
-    .smooth-field,
-    .instructions,
-    .status,
-    .demo-badge,
-    .empty,
-    .feedback {
-      -webkit-mask-box-image-source: none;
-      border-radius: var(--radius-small);
-      border-color: CanvasText;
-    }
-
-    .card::after,
-    .address-fields::after,
-    .smooth-field::after,
-    .empty::after,
-    .feedback::after,
-    .back-link::after {
-      display: none;
-    }
-
-    .smooth-field > input,
-    .smooth-field > select,
-    .smooth-field > textarea {
-      border: 1px solid ButtonText;
-    }
-
-    button:focus-visible,
-    a.button:focus-visible,
-    .back-link:focus-visible,
-    .smooth-field > :focus-visible {
-      outline: 3px solid Highlight;
-      outline-offset: 2px;
-    }
+  .card::after {
+    display: none;
   }
 }

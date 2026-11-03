@@ -4,8 +4,7 @@ saveButton.addEventListener("click", handleSaveClick);
 const serviceSelect = document.querySelector("#service");
 const noteText = document.querySelector("#note-text");
 
-const notedText = noteText.value;
-const selectedService = serviceSelect.value;
+const workPreview = document.querySelector("#work-preview");
 
 function handleSaveClick () {
     const notedText = noteText.value;
@@ -17,4 +16,9 @@ function handleSaveClick () {
     }
 
     console.log(visit);
+
+    // Vis resultatet ved knappen. Dette er en prøvevisning.
+    workPreview.textContent = visit.note.trim()
+        ? `${visit.service} · ${visit.note}. Prøvevisning uten lagring.`
+        : `${visit.service}. Prøvevisning uten lagring.`;
 }

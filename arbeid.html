@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="continuous-corners.css">
         <script src="arbeid.js" defer></script>
+        <script src="press.js" defer></script>
     </head>
     <body>
         <header class="app-header">
@@ -23,19 +24,27 @@
                 <img src="assets/back.svg" alt="" aria-hidden="true">
             </a>
             <div class="page-heading">
-                <h1>Brøyterunde</h1>
+                <h1 class="text-container">
+                    <span class="reveal-text">Brøyterunde</span>
+                </h1>
             </div>
-            <progress value="1" max="3" aria-label="Eksempel: behandlede stopp"></progress>
-            <div class="toolbar">
-                <a class="button" href="index.html">Til rundene</a>
-                <span>Stopp 2 av 3</span>
+            <div class="round-position">
+                <span class="round-position-label">Stopp 2 av 3</span>
+                <span class="round-progress">
+                    <span class="round-segments" aria-hidden="true">
+                        <span class="segment-done"></span>
+                        <span class="segment-current"></span>
+                        <span></span>
+                    </span>
+                    <span class="row-detail">1 av 3 stopp fullført</span>
+                </span>
             </div>
             <article class="card work-card">
                 <span class="status pending">Gjenstår</span>
                 <h2>Eksempelkunde B</h2>
                 <p class="address">Testbakken 22</p>
                 <p class="instructions">Legg snøen på venstre side.</p>
-                <!-- Feltene kan prøves, men knappene er deaktivert og ingenting lagres. -->
+                <!-- Prøvevisningen viser hva knappen leser fra skjemaet. -->
                 <div class="stack">
                     <label>
                         Tjeneste
@@ -53,29 +62,32 @@
                             <input type="datetime-local" value="2026-10-30T08:00">
                         </span>
                     </label>
-                    <label>
-                        Minutter (valgfritt)
-                        <span class="smooth-field">
-                            <input type="number" min="0" placeholder="F.eks. 15">
-                        </span>
-                    </label>
-                    <label>
-                        Notat (valgfritt)
-                        <span class="smooth-field">
-                            <textarea rows="3" placeholder="" id="note-text"></textarea>
-                        </span>
-                    </label>
-                    <button type="button" id="save-work" class="primary">Lagre og neste</button>
-                    <button type="button" disabled>Hopp over</button>
+                    <details class="optional-work">
+                        <summary>
+                            <span>Notat og varighet</span>
+                            <span class="chevron" aria-hidden="true"></span>
+                        </summary>
+                        <div class="stack optional-fields">
+                            <label>
+                                Minutter (valgfritt)
+                                <span class="smooth-field">
+                                    <input type="number" min="0" placeholder="F.eks. 15">
+                                </span>
+                            </label>
+                            <label>
+                                Notat (valgfritt)
+                                <span class="smooth-field">
+                                    <textarea rows="3" placeholder="" id="note-text"></textarea>
+                                </span>
+                            </label>
+                        </div>
+                    </details>
+                    <button type="button" id="save-work" class="primary">Se prøvevisning</button>
+                    <p id="work-preview" class="work-preview" role="status"></p>
                 </div>
             </article>
-            <div class="work-navigation">
-                <button type="button" disabled>Forrige</button>
-                <button type="button" disabled>Neste</button>
-            </div>
-
             <h2 class="section-title">Historikk på adressen</h2>
-            <p class="empty">Ingen tidligere arbeid.</p>
+            <p class="empty">Ingen tidligere jobber.</p>
         </main>
     </body>
 </html>

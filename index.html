@@ -7,6 +7,7 @@
         <title>Arbeidsoversikt | ALFRED MASKIN</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="continuous-corners.css">
+        <script src="press.js" defer></script>
     </head>
     <body>
         <header class="app-header">
@@ -20,8 +21,31 @@
         </header>
         <main class="home-main">
             <div class="home-heading">
-                <h1>Oversikt</h1>
+                <h1 class="text-container">
+                    <span class="reveal-text">Oversikt</span>
+                </h1>
             </div>
+
+            <!-- FORTSETT: En tidligere startet kjøring, uten at det lagres noe i utkastet. -->
+            <a class="card continue-round" href="arbeid.html">
+                <span class="list-icon icon-amber" aria-hidden="true">
+                    <img src="assets/rounds.svg" alt="">
+                </span>
+                <span class="list-text">
+                    <span class="row-detail">Pågående runde</span>
+                    <span class="row-title">Fortsett brøyterunden</span>
+                    <span class="row-detail">Neste stopp · Testbakken 22</span>
+                    <span class="round-progress">
+                        <span class="round-segments" aria-hidden="true">
+                            <span class="segment-done"></span>
+                            <span class="segment-current"></span>
+                            <span></span>
+                        </span>
+                        <span class="row-detail">1 av 3 stopp fullført</span>
+                    </span>
+                </span>
+                <span class="chevron" aria-hidden="true"></span>
+            </a>
 
             <!-- OVERSIKT: Tallene er faste eksempler. Hver flis er en vanlig lenke. -->
             <nav class="overview-grid" aria-label="Arbeidsoversikt">
@@ -46,18 +70,6 @@
                     <span class="tile-label">Logg</span>
                 </a>
             </nav>
-
-            <!-- FORTSETT: En tidligere startet kjøring, uten at det lagres noe i utkastet. -->
-            <a class="card continue-round" href="arbeid.html">
-                <span class="list-icon icon-amber" aria-hidden="true">
-                    <img src="assets/history.svg" alt="">
-                </span>
-                <span class="list-text">
-                    <span class="row-title">Fortsett brøyterunden</span>
-                    <span class="row-detail">1 av 3 stopp fullført</span>
-                </span>
-                <span class="chevron" aria-hidden="true"></span>
-            </a>
 
             <!-- RUNDER: Kopier en hel li-blokk for å vise en ekstra runde. -->
             <section id="runder" class="home-section" aria-labelledby="rounds-heading">

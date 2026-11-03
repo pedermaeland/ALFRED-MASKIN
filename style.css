@@ -25,7 +25,7 @@
   --color-accent: #b65046;
   --color-accent-light: #e79b90;
   --color-accent-hover: #9e4139;
-  --color-background: #000000;
+  --color-background: #101012;
   --color-surface: #181b1b;
   --color-field: #2b3133;
   --color-text: #f2f0eb;
@@ -126,13 +126,14 @@ button {
   background: var(--color-surface);
   border: 1px solid transparent;
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
   font-weight: 650;
   cursor: pointer;
 }
 
-button:hover {
-  background: var(--color-hover-surface);
+@media (hover: hover) {
+  button:enabled:hover {
+    background: var(--color-hover-surface);
+  }
 }
 
 button:disabled {
@@ -146,8 +147,10 @@ button.primary {
   border-color: var(--color-accent);
 }
 
-button.primary:hover {
-  background: var(--color-accent-hover);
+@media (hover: hover) {
+  button.primary:enabled:hover {
+    background: var(--color-accent-hover);
+  }
 }
 
 :focus-visible {
@@ -229,7 +232,6 @@ h1:focus {
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
   font-size: 0.7rem;
   font-weight: 750;
   background: var(--color-surface);
@@ -271,8 +273,10 @@ h1:focus {
   text-decoration: none;
 }
 
-.header-link:hover {
-  color: var(--color-text);
+@media (hover: hover) {
+  .header-link:hover {
+    color: var(--color-text);
+  }
 }
 
 /* Fast, rund opprett-knapp. Endre fargen her, og målet i index.html. */
@@ -296,11 +300,13 @@ h1:focus {
   text-decoration: none;
 }
 
-.floating-add:hover {
-  background: #007fe6;
+@media (hover: hover) {
+  .floating-add:hover {
+    background: #007fe6;
+  }
 }
 
-.floating-add:active {
+.floating-add:is(:active, .is-pressed) {
   background: #006bc7;
 }
 
@@ -328,7 +334,7 @@ h1:focus {
   border-radius: var(--radius-medium);
   color: #fff;
   text-decoration: none;
-  transition: filter 120ms ease, transform 120ms ease;
+
 }
 
 .tile-blue {
@@ -367,12 +373,10 @@ h1:focus {
   line-height: 1.2;
 }
 
-.overview-tile:hover {
-  filter: brightness(1.1);
-}
-
-.overview-tile:active {
-  transform: scale(0.98);
+@media (hover: hover) {
+  .overview-tile:hover {
+    filter: brightness(1.1);
+  }
 }
 
 .overview-tile:focus-visible {
@@ -423,9 +427,11 @@ h1:focus {
   text-decoration: none;
 }
 
-.list-link:hover,
-.continue-round:hover {
-  background: var(--color-hover-surface);
+@media (hover: hover) {
+  .list-link:hover,
+  .continue-round:hover {
+    background: var(--color-hover-surface);
+  }
 }
 
 .list-link:focus-visible,
@@ -515,14 +521,16 @@ h1:focus {
 }
 
 .back-link img {
-  transform: translateX(-2px) translateY(-1px);
+  transform: translateX(-2px);
   width: 1.8rem;
   height: 1.8rem;
   filter: brightness(0) invert(1);
 }
 
-.back-link:hover {
-  background: var(--color-hover-surface);
+@media (hover: hover) {
+  .back-link:hover {
+    background: var(--color-hover-surface);
+  }
 }
 
 .actions {
@@ -538,11 +546,6 @@ h1:focus {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .overview-tile {
-    transition: none;
-  }
-}
 
 /* =========================================================
    Main layout and page content
@@ -586,7 +589,10 @@ main {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
   corner-shape: var(--corner-shape);
+
 }
+
+
 
 .card h2 {
   margin-bottom: 0.75rem;
@@ -667,6 +673,9 @@ main {
   gap: 1rem;
 }
 
+.stack > * {
+}
+
 .toolbar,
 .row,
 .work-navigation {
@@ -709,7 +718,6 @@ textarea {
   background: var(--color-field);
   border: 1px solid var(--color-input-border);
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
 }
 
 input[type="file"] {
@@ -724,14 +732,15 @@ input[type="file"]::file-selector-button {
   background: var(--color-dark);
   border: 0;
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
   font: inherit;
   font-weight: 650;
   cursor: pointer;
 }
 
-input[type="file"]:hover::file-selector-button {
-  background: var(--color-accent);
+@media (hover: hover) {
+  input[type="file"]:hover::file-selector-button {
+    background: var(--color-accent);
+  }
 }
 
 input[type="file"]:focus-visible {
@@ -759,6 +768,13 @@ textarea {
   accent-color: var(--color-accent);
 }
 
+/* Dato bruker nettleserens datovelger, men samme boks som de andre filtrene. */
+.filters input[type="date"] {
+  display: block;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .filters,
 .form-grid {
   display: grid;
@@ -780,7 +796,6 @@ textarea {
   padding: 1rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
-  corner-shape: var(--corner-shape);
 }
 
 legend {
@@ -831,7 +846,6 @@ legend {
   padding: 0.75rem;
   background: var(--color-field);
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
   white-space: pre-wrap;
 }
 
@@ -856,7 +870,6 @@ legend {
   color: var(--color-status-text);
   background: var(--color-status-background);
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
   font-size: 0.8rem;
   font-weight: 650;
 }
@@ -880,7 +893,6 @@ legend {
   color: var(--color-muted);
   border: 1px dashed var(--color-border);
   border-radius: var(--radius-medium);
-  corner-shape: var(--corner-shape);
 }
 
 .feedback {
@@ -888,7 +900,6 @@ legend {
   padding: 1rem;
   border: 1px solid;
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
 }
 
 .success {
@@ -907,13 +918,6 @@ legend {
   border-top: 1px solid var(--color-border);
 }
 
-progress {
-  width: 100%;
-  height: 0.75rem;
-  margin-bottom: 1rem;
-  accent-color: var(--color-accent);
-}
-
 
 /* =========================================================
    Responsive adjustments
@@ -930,11 +934,9 @@ a.button {
   background: var(--color-surface);
   border: 1px solid transparent;
   border-radius: var(--radius-small);
-  corner-shape: var(--corner-shape);
   font-weight: 650;
   text-decoration: none;
 
-  transition: background-color 0.1s ease;
 }
 
 a.button.primary {
@@ -943,15 +945,17 @@ a.button.primary {
   color: var(--color-inverse);
 }
 
-a.button:hover {
-  background: var(--color-hover-surface);
+@media (hover: hover) {
+  a.button[href]:not([aria-disabled="true"]):hover {
+    background: var(--color-hover-surface);
+  }
 }
 
-a.button.primary:hover {
-  background: var(--color-accent-hover);
+@media (hover: hover) {
+  a.button.primary[href]:not([aria-disabled="true"]):hover {
+    background: var(--color-accent-hover);
+  }
 }
-
-
 
 
 
@@ -980,4 +984,232 @@ a[aria-disabled] {
     flex: 1 1 auto;
   }
 
+}
+
+/* PÅGÅENDE RUNDE OG ARBEIDSSKJERM */
+
+.home-main .continue-round {
+  margin: 0 0 1.25rem;
+}
+
+.continue-round .list-text {
+  flex: 1;
+}
+
+.round-progress {
+  display: grid;
+  gap: 0.25rem;
+  width: min(100%, 10rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.round-segments {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.25rem;
+}
+
+.round-segments > span {
+  height: 0.375rem;
+  border-radius: 999px;
+  background: var(--color-border);
+}
+
+.round-segments > .segment-done {
+  background: var(--color-success-text);
+}
+
+.round-segments > .segment-current {
+  background: var(--color-warning-text);
+}
+
+.round-position {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 42rem;
+  margin-inline: auto;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.round-position-label {
+  color: var(--color-text);
+  font-weight: 650;
+}
+
+.optional-work {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+}
+
+.optional-work > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0.75rem;
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.optional-work > summary::-webkit-details-marker {
+  display: none;
+}
+
+.optional-work[open] > summary .chevron {
+  transform: rotate(135deg);
+}
+
+.optional-work > summary:is(:active, .is-pressed) {
+  background-color: var(--color-hover-surface);
+}
+
+.optional-fields {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.work-preview {
+  margin: 0;
+  color: var(--color-muted);
+  overflow-wrap: anywhere;
+}
+
+.work-preview:not(:empty) {
+  padding: 0.75rem;
+  border-inline-start: 2px solid var(--color-focus);
+  background: var(--color-field);
+  border-radius: var(--radius-small);
+}
+
+#jobb-a:target {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  scroll-margin-top: 1rem;
+}
+
+/* ANIMASJONER */
+
+.text-container {
+  line-height: 1.2;
+}
+
+.reveal-text {
+  display: block;
+}
+
+/* Farge viser trykk også når Bevegelsesreduksjon er slått på. */
+button:enabled:is(:active, .is-pressed),
+a.button[href]:not([aria-disabled="true"]):is(:active, .is-pressed),
+.back-link:is(:active, .is-pressed),
+.list-link:is(:active, .is-pressed),
+.continue-round:is(:active, .is-pressed) {
+  background-color: var(--color-hover-surface);
+}
+
+button.primary:enabled:is(:active, .is-pressed),
+a.button.primary[href]:not([aria-disabled="true"]):is(:active, .is-pressed) {
+  background-color: var(--color-accent-hover);
+}
+
+.header-link:is(:active, .is-pressed) {
+  color: var(--color-text);
+}
+
+.overview-tile:is(:active, .is-pressed) {
+  filter: brightness(0.93);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --press-in: 90ms;
+    --settle: 300ms;
+    --press-ease: cubic-bezier(0.18, 0.75, 0.32, 1);
+    --settle-ease: cubic-bezier(0.18, 0.72, 0.25, 1);
+  }
+
+  /* Fjærkurve: demping 0.72, vinkelfrekvens 28 rad/s. */
+  @supports (transition-timing-function: linear(0, 1)) {
+    :root {
+      --settle-ease: linear(
+        0 0%,
+        0.1731 8.333%,
+        0.4815 16.667%,
+        0.7478 25%,
+        0.9197 33.333%,
+        1.0063 41.667%,
+        1.036 50%,
+        1.0362 58.333%,
+        1.0255 66.667%,
+        1.0141 75%,
+        1.0057 83.333%,
+        1.001 91.667%,
+        1 100%
+      );
+    }
+  }
+
+  /* Farge reagerer straks. Bare formen får en fjærbevegelse. */
+  button:enabled,
+  a.button[href]:not([aria-disabled="true"]),
+  .back-link,
+  .floating-add,
+  .overview-tile {
+    transition: scale var(--settle) var(--settle-ease);
+  }
+
+  button:enabled:is(:active, .is-pressed),
+  a.button[href]:not([aria-disabled="true"]):is(:active, .is-pressed),
+  .back-link:is(:active, .is-pressed),
+  .floating-add:is(:active, .is-pressed),
+  .overview-tile:is(:active, .is-pressed) {
+    scale: 0.965;
+    transition-duration: var(--press-in);
+    transition-timing-function: var(--press-ease);
+  }
+
+  .continue-round .chevron,
+  .list-link .chevron {
+    transition: translate 180ms ease-out;
+  }
+
+  .continue-round:is(:active, .is-pressed) .chevron,
+  .list-link:is(:active, .is-pressed) .chevron {
+    translate: 4px 0;
+    transition-duration: 90ms;
+  }
+
+  /* Pilen viser den nye tilstanden før feltene er ferdig med å komme inn. */
+  .optional-work .chevron {
+    transition: transform var(--settle) var(--settle-ease);
+  }
+
+  .optional-work[open] > .optional-fields {
+    animation: showWorkFields 220ms cubic-bezier(0.2, 0.72, 0.25, 1);
+  }
+
+  .work-preview:not(:empty) {
+    animation: showPreview 180ms ease-out;
+  }
+}
+
+@keyframes showWorkFields {
+  from {
+    opacity: 0.45;
+    translate: 0 -8px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes showPreview {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
