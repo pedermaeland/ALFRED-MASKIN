@@ -277,11 +277,14 @@ h1:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
+  margin-left: auto;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
   color: var(--color-muted);
-  font-size: 0.875rem;
   text-decoration: none;
+  margin-bottom: 0.4rem;
+  border-radius: var(--radius-pill);
+  border: 1px dashed var(--color-border);
 }
 
 @media (hover: hover) {
