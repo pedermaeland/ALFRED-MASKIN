@@ -14,17 +14,17 @@
     </desc>
 
     <!--
-        Endre fill for å bytte farge.
-        Bakgrunnen er gjennomsiktig.
+        Change fill to set the color.
+        The background is transparent.
 
-        Hvert hjørne består av to C-kommandoer (kubiske Bézier-kurver).
-        L-kommandoene er de rette kantene mellom hjørnene.
-        Kurvaturen er null der kurven møter en rett kant, og den
-        er lik på begge sider av skjøten mellom de to kurvene (G2).
+        Each corner uses two C commands (cubic Bézier curves).
+        The L commands draw straight edges between corners.
+        Curvature is zero where the curve meets a straight edge, and
+        matches on both sides of the join between the curves (G2).
 
-        Dette er en fast 320 x 160-form. Skaler proporsjonalt for å
-        beholde hjørnene. Den tilpasser ikke hjørneradiusen automatisk
-        til HTML-kort med andre størrelsesforhold.
+        This shape is 320 x 160. Scale it proportionally to
+        preserve the corners. The corner radius stays fixed relative
+        to the shape's dimensions.
     -->
     <path
         id="continuous-rectangle"

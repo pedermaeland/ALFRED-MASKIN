@@ -1,35 +1,23 @@
 # ALFRED MASKIN
 
-Arbeidsloggen er et utkast med fiktive data. Åpne `index.html` direkte i nettleseren, eller bruk Live Server i VS Code.
+Open the app through a static web server. Use localhost for testing on the computer and HTTPS for use on a phone. Keep the same site address for normal use because each browser keeps its own database for each site.
 
-## Endre en skjerm
+On the phone, open **Data** with a connection and wait for the offline setup message. Then close and reopen the app in airplane mode and try a complete round with fictional data. Export a backup and restore it in a separate browser profile before relying on the app. Restoring replaces the data in that browser. Keep the exported file somewhere outside the app.
 
-Alle åtte skjermene ligger i `index.html`. Søk etter en av ID-ene for å finne riktig blokk.
+## Editing the app
 
-| ID | Skjerm |
-| --- | --- |
-| `oversikt` | Oversiktsfliser, pågående runde og dagens plan |
-| `plan` | Dagens plan |
-| `runde` | Rundedetaljer og kjørerekkefølge |
-| `kunder` | Kundeliste |
-| `kunde` | Kundeskjema |
-| `arbeid` | Arbeidsskjerm og prøvevisning |
-| `logg` | Eksempelhistorikk |
-| `data` | Sikkerhetskopi og eksport |
+The screens are sections in `index.html`. Links use a section's ID, for example `#kunder`, or include a record ID when opening details. `style.css` contains layout and colors. `continuous-corners.css` contains the SVG masks for card corners.
 
-En skjerm er en `<section>` med `data-screen`. En lenke med `href="#runde"` åpner skjermen med `id="runde"`. En lenke kan også peke på noe inni skjermen. For eksempel åpner `#jobb-a` planen og hopper til jobbkortet. Alle skjermene deler samme topptekst.
+- `js/navigation.js` switches screens and runs the opening and back animations.
+- `js/press.js` handles touch and pointer feedback.
+- `js/storage.js` opens IndexedDB and saves related changes together. On first open it carries over customers entered in the previous prototype on the same site address.
+- `js/app.js` shares screen helpers and renders the overview.
+- `js/kunder.js` handles customers, addresses, search, and archiving.
+- `js/round.js` handles saved round templates, stop order, and new runs.
+- `js/arbeid.js` handles planned jobs, work registration, and history.
+- `js/backup.js` handles backup files, CSV, and offline setup.
+- `sw.js` caches the app files. Update the cache version in this file when releasing changed app files.
 
-Farger og layout ligger i `style.css`. SVG-maskene for de kontinuerlige hjørnene på store kort og fliser ligger i `continuous-corners.css`.
+A round template stores address IDs. Starting a run makes a separate copy of its stop order. Saving a visit and completing its stop happen together. Older visits retain the customer name and address recorded at the time.
 
-## Hva gjør JavaScript?
-
-Filene ligger i `js/`. De lastes med `defer` i HTML, slik at nettleseren leser HTML-en før koden prøver å finne knappene og feltene.
-
-- **`navigation.js`** leser delen av adressen etter `#` og bruker den til å finne skjermen. Den skjuler forrige skjerm med `hidden` og viser den nye. Det du har skrevet i feltene blir værende mens du bytter skjerm. `history.pushState` gir nettleserens Tilbake- og Frem-knapper et steg å gå til.
-- **`navigation.js`** måler også lenken du trykket på, før den skjules. En kopi av den gamle skjermen ligger bak mens `clip-path` åpner den nye skjermen fra lenkens form. Lenken og fargen tones ut i løpet av 90 ms. Selve åpningen tar 320 ms. Tilbakepilen bruker en horisontal slide på 310 ms. Bevegelsesreduksjon hopper rett til skjermen.
-- **`press.js`** legger CSS-klassen `is-pressed` på et element når du tar på det. Når du slipper eller begynner å rulle, fjernes klassen. Farge og skalering styres i `style.css`.
-- **`arbeid.js`** leser tjenesten og notatet når du trykker «Se prøvevisning». Den samler verdiene i et objekt som heter `visit` og viser dem ved knappen. `textContent` viser teksten som tekst, selv om notatet inneholder tegn som ligner HTML.
-
-## Hva kan prøves nå?
-
-Navigasjon, felter og prøvevisning kan prøves med testdata. Å bytte skjerm beholder det du har skrevet, mens en oppdatering av nettleseren starter med eksempelverdiene igjen. Lagring, filtrering, eksport, sikkerhetskopi og installerbar offline-bruk er senere steg.
+Data stays in the current browser. Use backup export and restore to move it between devices.

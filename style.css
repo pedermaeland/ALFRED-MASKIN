@@ -1,4 +1,4 @@
-/* Lokal fontfil. Ingen tilkobling til Google Fonts er nødvendig. */
+/* Load the font from a local file. */
 @font-face {
   font-family: "Nunito Sans";
   src: url("assets/fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf") format("truetype");
@@ -14,7 +14,7 @@
    ========================================================= */
 
 :root {
-  /* Apple bruker sin innebygde systemfont. Andre enheter bruker Nunito Sans. */
+  /* Apple devices use their system font. Other devices use Nunito Sans. */
   font-family: -apple-system, BlinkMacSystemFont, "Nunito Sans", system-ui, sans-serif;
   font-optical-sizing: auto;
   line-height: 1.5;
@@ -23,6 +23,7 @@
   color-scheme: dark;
 
   --color-accent: #b65046;
+  --color-accent-blue: #0071E3;
   --color-accent-light: #e79b90;
   --color-accent-hover: #9e4139;
   --color-background: #101012;
@@ -46,9 +47,9 @@
   --color-error-background: #421f24;
   --color-transparent: transparent;
 
-  /* GLASSKANTER: bare omrisset på kort, ikke bakgrunnen inni.
-     Topp = lyst gjenskinn. Sider = tynn skygge. Bunn = svak refleks.
-     Sett --glass-edge-opacity til 0 for å skjule disse kantene. */
+  /* GLASS EDGES. These settings style the card outline.
+     The top has a bright highlight, the sides a thin shadow and the bottom a faint reflection.
+     Set --glass-edge-opacity to 0 to hide these edges. */
   --glass-edge-top: rgba(255, 255, 255, 0.4);
   --glass-edge-shoulder: rgba(255, 255, 255, 0.2);
   --glass-edge-side: rgba(255, 255, 255, 0.12);
@@ -56,7 +57,7 @@
   --glass-edge-bottom: rgba(255, 255, 255, 0.18);
   --glass-edge-opacity: 1;
 
-  /* Små lyse glimt ligger over den retningsbestemte kantfargen. */
+  /* Small highlights sit over the edge gradient. */
   --glass-edge-paint:
     radial-gradient(
       ellipse 85% 4px at 50% 0%,
@@ -145,6 +146,15 @@ button.primary {
   color: var(--color-inverse);
   background: var(--color-accent);
   border-color: var(--color-accent);
+}
+
+#add-round-address {
+  border: 2px dashed var(--color-accent-blue);
+  margin-bottom: 1rem;
+}
+
+#add-round-address.has-addresses {
+  border-style: solid;
 }
 
 @media (hover: hover) {
@@ -240,9 +250,9 @@ h1:focus {
 }
 
 /* =========================================================
-   Påminnelser-inspirert startside
-   Fliser øverst, deretter enkle rader i grupper.
-   Alt innhold og alle eksempel-tall redigeres i index.html.
+   Home screen inspired by Reminders
+   Tiles at the top, followed by grouped rows.
+   Edit the content and sample counts in index.html.
    ========================================================= */
 
 .home-heading {
@@ -258,7 +268,7 @@ h1:focus {
   letter-spacing: -0.035em;
 }
 
-/* Plass til den faste plussknappen når den siste raden rulles frem. */
+/* Leave space below the last row for the floating plus button. */
 .home-main {
   padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
 }
@@ -280,7 +290,7 @@ h1:focus {
   }
 }
 
-/* Fast, rund opprett-knapp. Endre fargen her, og målet i index.html. */
+/* Floating add button. Edit its color here and its destination in index.html. */
 .floating-add {
   position: fixed;
   right: calc(1.5rem + env(safe-area-inset-right, 0px));
@@ -293,7 +303,7 @@ h1:focus {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   corner-shape: round;
-  /* Samplet fra referansebildet. Første verdi er fallback for sRGB-skjermer. */
+  /* Colors sampled from the reference. The first value is the fallback for sRGB screens. */
   background: #0090ff;
   background: color(display-p3 0.247059 0.556863 0.968627);
   color: #fff;
@@ -316,7 +326,7 @@ h1:focus {
   outline-offset: 4px;
 }
 
-/* De fire oversiktsflisene. Fargene velges med tile-klassene i HTML. */
+/* The four overview tiles. Choose colors with the tile classes in HTML. */
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -385,7 +395,7 @@ h1:focus {
   outline-offset: -5px;
 }
 
-/* En gruppe er ett kort. Linjene inni er hele lenker, ikke egne kort. */
+/* Each group is a card containing full-width link rows. */
 .home-section {
   margin-top: 2rem;
   scroll-margin-top: 1rem;
@@ -769,7 +779,7 @@ textarea {
   accent-color: var(--color-accent);
 }
 
-/* Dato bruker nettleserens datovelger, men samme boks som de andre filtrene. */
+/* Date fields keep the browser picker and use the site's field styling. */
 .filters input[type="date"],
 .work-card input[type="datetime-local"] {
   display: block;
@@ -988,7 +998,7 @@ a[aria-disabled] {
 
 }
 
-/* PÅGÅENDE RUNDE OG ARBEIDSSKJERM */
+/* ACTIVE ROUND AND WORK SCREEN */
 
 .home-main .continue-round {
   margin: 0 0 1.25rem;
@@ -1089,7 +1099,7 @@ a[aria-disabled] {
   scroll-margin-top: 1rem;
 }
 
-/* ANIMASJONER */
+/* ANIMATIONS */
 
 .text-container {
   line-height: 1.2;
@@ -1099,7 +1109,7 @@ a[aria-disabled] {
   display: block;
 }
 
-/* Farge viser trykk også når Bevegelsesreduksjon er slått på. */
+/* Color gives press feedback even with Reduce Motion enabled. */
 button:enabled:is(:active, .is-pressed),
 a.button[href]:not([aria-disabled="true"]):is(:active, .is-pressed),
 .back-link:is(:active, .is-pressed),
@@ -1119,7 +1129,7 @@ a.button.primary[href]:not([aria-disabled="true"]):is(:active, .is-pressed) {
   text-underline-offset: 0.2em;
 }
 
-/* Feltene markerer trykk uten at teksten eller boksen flytter seg. */
+/* Highlight pressed fields without moving the field or its text. */
 input:enabled:is(:active, .is-pressed),
 select:enabled:is(:active, .is-pressed),
 textarea:enabled:is(:active, .is-pressed) {
@@ -1147,7 +1157,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
     --settle-ease: cubic-bezier(0.18, 0.72, 0.25, 1);
   }
 
-  /* Fjærkurve: demping 0.72, vinkelfrekvens 28 rad/s. */
+  /* Spring curve with damping 0.72 and angular frequency 28 rad/s. */
   @supports (transition-timing-function: linear(0, 1)) {
     :root {
       --settle-ease: linear(
@@ -1168,7 +1178,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
     }
   }
 
-  /* Farge reagerer straks. Bare formen får en fjærbevegelse. */
+  /* The color changes immediately and the shape springs back on release. */
   button:enabled,
   a.button[href]:not([aria-disabled="true"]),
   .back-link,
@@ -1209,7 +1219,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
     transition-duration: 90ms;
   }
 
-  /* Pilen viser den nye tilstanden før feltene er ferdig med å komme inn. */
+  /* The arrow turns as soon as the fields start to appear. */
   .optional-work .chevron {
     transition: transform var(--settle) var(--settle-ease);
   }
@@ -1261,7 +1271,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
   z-index: 2;
 }
 
-/* Den gamle skjermen ligger stille bak åpningen. */
+/* The previous screen stays behind the opening animation. */
 .screen-transition-previous {
   position: fixed;
   inset: 0;
@@ -1276,17 +1286,17 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
   left: 0;
 }
 
-/* Tilbakesliden har to kopier over den ekte skjermen. */
+/* Screen slides use two copies over the live screen. */
 .screen-slide {
   z-index: 101;
 }
 
-.screen-slide-out {
+.screen-slide-front {
   z-index: 102;
   box-shadow: -0.5rem 0 1.5rem rgba(0, 0, 0, 0.35);
 }
 
-/* Farge og kopi av lenken ligger over den nye skjermen inni åpningen. */
+/* The tapped link and its color appear inside the opening shape. */
 .screen-transition-tint {
   position: fixed;
   inset: 0;
@@ -1295,7 +1305,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
   background-color: var(--color-hover-surface);
 }
 
-/* Kopien viser innholdet. Det ytre laget tegner fargen og formen. */
+/* The copy supplies the content. The outer layer draws the color and shape. */
 .screen-transition-tint .screen-transition-source {
   position: absolute;
   inset: auto;
@@ -1314,7 +1324,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
   display: none;
 }
 
-/* TJENESTEVELGER */
+/* SERVICE PICKER */
 .service-field {
   display: grid;
   gap: 0.4rem;
@@ -1377,7 +1387,7 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
   width: 100%;
 }
 
-/* Arket glir opp mens bakgrunnen tones ned. */
+/* Slide the sheet up while dimming the background. */
 @media (prefers-reduced-motion: no-preference) {
   .service-sheet[open] {
     animation: service-sheet-rise 320ms cubic-bezier(0.22, 0.72, 0.24, 1) both;
@@ -1406,4 +1416,52 @@ input[type="file"]:enabled:is(:active, .is-pressed)::file-selector-button {
   to {
     opacity: 1;
   }
+}
+
+/* Shared date controls and work picker. */
+input[type="date"],
+input[type="datetime-local"] {
+  display: block;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.service-trigger {
+  width: 100%;
+  min-height: 3rem;
+  text-align: left;
+  background: var(--color-field);
+  border-color: var(--color-input-border);
+}
+
+#plan-list {
+  margin-top: 1rem;
+}
+
+/* Show the Norwegian value at rest and the native control while editing. */
+.date-control {
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+
+.date-control:not(:focus-within) > input {
+  color: transparent;
+}
+
+.date-control:not(:focus-within) > input::-webkit-datetime-edit {
+  color: transparent;
+}
+
+.date-readout {
+  position: absolute;
+  inset: 0 2.5rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.date-control:focus-within > .date-readout {
+  visibility: hidden;
 }

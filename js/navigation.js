@@ -1,6 +1,6 @@
-/* SIDEVEKSLING
-   Hver skjerm er en section med data-screen i index.html.
-   En lenke som href="#runde" finner skjermen med id="runde". */
+/* SCREEN NAVIGATION
+   Each screen is a section with data-screen in index.html.
+   A link with href="#runde" opens the screen with id="runde". */
 const appShell = document.querySelector(".app-shell");
 const overviewScreen = document.querySelector("#oversikt");
 const dataLink = document.querySelector("#data-link");
@@ -9,9 +9,9 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let currentScreen = overviewScreen;
 let stopScreenAnimation = null;
 
-// En lenke kan peke på hele skjermen eller en del av den, f.eks. #jobb-a.
+// A link can point to a screen or an element inside it, such as #jobb-a.
 function findDestination(hash) {
-    const target = document.getElementById(hash.slice(1));
+    const target = document.getElementById(hash.slice(1).split("?")[0]);
     const screen = target?.closest("[data-screen]");
 
     return {
@@ -20,7 +20,7 @@ function findDestination(hash) {
     };
 }
 
-// hidden skjuler skjermen, men HTML-en og det du har skrevet blir i nettleseren.
+// hidden hides the screen while keeping its HTML and field values in the page.
 function showScreen(destination, moveFocus) {
     const { screen, anchor } = destination;
 
@@ -29,6 +29,7 @@ function showScreen(destination, moveFocus) {
     currentScreen = screen;
     document.title = screen.dataset.title;
     dataLink.hidden = screen !== overviewScreen;
+    document.dispatchEvent(new Event("app:navigate"));
 
     if (moveFocus) {
         const focusTarget = anchor ?? screen.querySelector("h1");
@@ -42,7 +43,7 @@ function showScreen(destination, moveFocus) {
     }
 }
 
-// Kopien er bare til pynt. ID-ene blir igjen på den ekte skjermen.
+// The copy is decorative. IDs stay on the live screen.
 function copyVisibleScreen() {
     const copy = document.createElement("div");
     copy.className = "screen-transition-previous";
@@ -66,32 +67,34 @@ function copyVisibleScreen() {
     return copy;
 }
 
-/* TILBAKESLIDE
-   Skjermen du forlater glir til høyre. Skjermen bak starter litt til venstre.
-   Begge kopiene følger samme kurve, mens den ekte skjermen allerede er klar. */
-function slideBack(destination) {
+/* SCREEN SLIDE
+   Going forward brings the new screen in from the right. Going back reverses the layers.
+   Both copies use the same easing curve while the live screen is ready underneath. */
+function slideScreen(destination, goingBack) {
     const outgoing = copyVisibleScreen();
     showScreen(destination, true);
     const incoming = copyVisibleScreen();
 
     incoming.classList.add("screen-slide");
-    outgoing.classList.add("screen-slide", "screen-slide-out");
+    outgoing.classList.add("screen-slide");
+    const front = goingBack ? outgoing : incoming;
+    front.classList.add("screen-slide-front");
     document.body.append(incoming, outgoing);
 
-    // Prosentene måles mot skjermbredden. Bare den fremste skjermen flyttes helt ut.
+    // The front screen travels a full width. The screen behind it moves just 28%.
     const timing = {
         duration: 310,
         easing: "cubic-bezier(0.22, 0.72, 0.22, 1)",
         fill: "both"
     };
     const enter = incoming.animate({
-        transform: ["translateX(-28%)", "translateX(0)"]
+        transform: [goingBack ? "translateX(-28%)" : "translateX(100%)", "translateX(0)"]
     }, timing);
     const exit = outgoing.animate({
-        transform: ["translateX(0)", "translateX(100%)"]
+        transform: ["translateX(0)", goingBack ? "translateX(100%)" : "translateX(-28%)"]
     }, timing);
 
-    // Fjern kopiene samtidig, også hvis du navigerer videre før sliden er ferdig.
+    // Remove both copies together, including when another navigation interrupts the slide.
     function finishSlide() {
         if (stopScreenAnimation !== finishSlide) {
             return;
@@ -108,9 +111,9 @@ function slideBack(destination) {
     exit.finished.then(finishSlide, finishSlide);
 }
 
-/* BEHOLDER SOM VOKSER
-   Behold et bilde av den gamle skjermen bak. Klipp den nye skjermen
-   til formen på lenken, og åpne klippet slik at innholdet kommer fram inni. */
+/* EXPANDING CARD
+   Keep a copy of the previous screen behind the new one. Start by clipping the new screen
+   to the tapped link's shape, then expand it to reveal the content. */
 function openScreen(link, destination) {
     stopScreenAnimation?.();
 
@@ -120,8 +123,8 @@ function openScreen(link, destination) {
         return;
     }
 
-    if (link.matches(".back-link")) {
-        slideBack(destination);
+    if (!link.matches(".overview-tile, .floating-add")) {
+        slideScreen(destination, link.matches(".back-link"));
         return;
     }
 
@@ -143,7 +146,7 @@ function openScreen(link, destination) {
 
     const previous = copyVisibleScreen();
 
-    // Den trykkede lenkens farge og innhold blir med i de første bildene.
+    // Show the tapped link's color and content in the first few frames.
     const tint = document.createElement("div");
     tint.className = "screen-transition-tint";
     tint.setAttribute("aria-hidden", "true");
@@ -168,7 +171,7 @@ function openScreen(link, destination) {
     showScreen(destination, true);
     appShell.append(tint);
 
-    // Regn om skjermkantene til avstander fra appens kanter etter sideskiftet.
+    // After navigation, measure the viewport edges relative to the app.
     const app = appShell.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = window.innerHeight;
@@ -186,7 +189,7 @@ function openScreen(link, destination) {
     const fullShape = shape(0, viewportWidth, viewportHeight, 0, "48px");
     const edgeShape = shape(0, viewportWidth, viewportHeight, 0, "0px");
 
-    // Bare flisfargen tones ut. Innholdet i den nye skjermen forblir synlig.
+    // Fade the tile overlay to reveal the new screen underneath.
     const colorFade = tint.animate(
         { opacity: [1, 0] },
         { duration: 90, fill: "both" }
@@ -197,7 +200,7 @@ function openScreen(link, destination) {
         { clipPath: edgeShape }
     ], { duration: 320, fill: "both" });
 
-    // Rydd opp ved slutten eller ved neste navigasjon.
+    // Clean up when the animation finishes or another navigation starts.
     function finishOpening() {
         if (stopScreenAnimation !== finishOpening) {
             return;
@@ -215,8 +218,8 @@ function openScreen(link, destination) {
     opening.finished.then(finishOpening, finishOpening);
 }
 
-/* LENKER OG NETTLESERHISTORIKK
-   Vi lar vanlige nettleserhandlinger som Ctrl-klikk åpne lenken selv. */
+/* LINKS AND BROWSER HISTORY
+   Let the browser handle shortcuts such as Ctrl-click. */
 document.addEventListener("click", (event) => {
     const link = event.target.closest('a[href^="#"]');
 
@@ -229,7 +232,7 @@ document.addEventListener("click", (event) => {
     event.preventDefault();
     const destination = findDestination(link.hash);
 
-    // pushState endrer adressen og legger til et steg for nettleserens Tilbake-knapp.
+    // pushState updates the address and adds an entry to browser history.
     if (location.hash !== link.hash) {
         history.pushState(null, "", link.hash);
     }
@@ -237,14 +240,14 @@ document.addEventListener("click", (event) => {
     openScreen(link, destination);
 });
 
-// Tilbake, Frem og en endring av #delen i adressen viser riktig skjerm.
+// Back, Forward and manual changes to the URL hash show the matching screen.
 window.addEventListener("hashchange", () => {
     stopScreenAnimation?.();
     showScreen(findDestination(location.hash), true);
 });
 
-// Avslutt bevegelsen hvis brukeren endrer bevegelsesvalget.
+// Stop the animation if the motion preference changes.
 reducedMotion.addEventListener("change", () => stopScreenAnimation?.());
 
-// Les adressen også ved oppstart, f.eks. hvis noen åpner index.html#logg direkte.
+// Read the address at startup to support direct links such as index.html#logg.
 showScreen(findDestination(location.hash), false);

@@ -5,12 +5,12 @@
     viewBox="0 0 320 160"
 >
     <!--
-        Kalibrert for 24px hjørner.
-        Nominell kantbredde: topp 0.5 CSS-px, sider 0.2, bunn 0.3.
-        Ytterkurven er skarp. Seks transparente konturer lager en
-        smal, myk overgang på innsiden, også når små blur-verdier
-        ville blitt avrundet av nettleseren.
-        Fargen styres av GLASSKANTER i style.css.
+        Calibrated for 24px corners.
+        Nominal edge widths are 0.5 CSS px at the top, 0.2 at the sides and 0.3 at the bottom.
+        The outer curve is crisp. Six translucent outlines create a
+        soft inner edge even when the browser would round off
+        small blur values.
+        The GLASS EDGES section in style.css sets the color.
     -->
     <defs>
         <path
@@ -43,7 +43,7 @@
         >
             <use href="#outer" fill="white" />
 
-            <!-- Svart skjuler innsiden gradvis. Hvitt beholder kanten. -->
+            <!-- Black gradually masks the inside. White preserves the edge. -->
             <path
                 fill="black"
                 opacity="0.166666667"
@@ -167,6 +167,6 @@
         </mask>
     </defs>
 
-    <!-- Ytterkurven hindrer at kanten blir diffus utover. -->
+    <!-- The outer curve keeps the outside edge sharp. -->
     <use href="#outer" fill="black" mask="url(#edge)" />
 </svg>

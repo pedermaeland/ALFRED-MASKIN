@@ -1,4 +1,4 @@
-/* G2-hjørner for kort og fliser. Andre elementer bruker vanlig border-radius. */
+/* G2 corners for cards and tiles. Other elements use standard border-radius. */
 .overview-tile {
   corner-shape: var(--corner-shape);
 }
@@ -14,7 +14,7 @@
     -webkit-mask-box-image-repeat: stretch;
   }
 
-  /* Den vanlige kanten holder plassen. SVG-masken tegner glasskanten. */
+  /* The regular border reserves space. The SVG mask draws the glass edge. */
   .card {
     position: relative;
     border: 1px solid transparent;

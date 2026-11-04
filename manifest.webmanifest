@@ -1,0 +1,17 @@
+{
+    "name": "ALFRED MASKIN",
+    "short_name": "Arbeidslogg",
+    "lang": "nb",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#101012",
+    "theme_color": "#111415",
+    "icons": [
+        {
+            "src": "assets/Nettside%20for%20ALFRED%20MASKIN/favicon.webp",
+            "sizes": "1051x798",
+            "type": "image/webp"
+        }
+    ]
+}
