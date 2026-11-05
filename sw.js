@@ -1,5 +1,5 @@
 /* Cache the app files. Customer data stays in IndexedDB. */
-const cacheName = 'alfred-maskin-app-v4';
+const cacheName = 'alfred-maskin-app-v5';
 const appFiles = [
     './index.html',
     './manifest.webmanifest',

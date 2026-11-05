@@ -186,8 +186,11 @@ function openScreen(link, destination) {
         Math.max(0, box.left),
         radius
     );
-    const fullShape = shape(0, viewportWidth, viewportHeight, 0, "48px");
-    const edgeShape = shape(0, viewportWidth, viewportHeight, 0, "0px");
+    // Grow past the viewport so the rounded corners also reach the screen edges.
+    const fullShape = shape(-48, viewportWidth + 48, viewportHeight + 48, -48, "48px");
+    // Larger screens need more time to cover the longer distance.
+    const openingDuration = Math.min(500, Math.max(320,
+        Math.round(Math.hypot(viewportWidth, viewportHeight) * 0.25)));
 
     // Fade the tile overlay to reveal the new screen underneath.
     const colorFade = tint.animate(
@@ -196,9 +199,8 @@ function openScreen(link, destination) {
     );
     const opening = appShell.animate([
         { clipPath: startShape, easing: "cubic-bezier(0.22, 0.68, 0.25, 1)" },
-        { clipPath: fullShape, offset: 0.86 },
-        { clipPath: edgeShape }
-    ], { duration: 320, fill: "both" });
+        { clipPath: fullShape }
+    ], { duration: openingDuration, fill: "both" });
 
     // Clean up when the animation finishes or another navigation starts.
     function finishOpening() {
