@@ -687,9 +687,6 @@ main {
   gap: 1rem;
 }
 
-.stack > * {
-}
-
 .toolbar,
 .row,
 .work-navigation {
