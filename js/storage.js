@@ -6,7 +6,7 @@ function newId() {
 }
 
 function emptyWorkData() {
-    return { version: 1, customers: [], rounds: [], runs: [], jobs: [], visits: [] };
+    return { version: 1, services: [], customers: [], rounds: [], runs: [], jobs: [], visits: [] };
 }
 
 function openWorkDatabase() {

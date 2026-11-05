@@ -60,16 +60,7 @@ function appendAddressEditor(address) {
     instructionsLabel.append(instructions);
 
     const serviceOptions = element('div', undefined, 'service-options');
-    for (const service of services) {
-        const optionLabel = element('label', undefined, 'checkbox');
-        const option = element('input');
-        option.type = 'checkbox';
-        option.name = 'address-service';
-        option.value = service;
-        option.checked = address ? address.services.includes(service) : service === services[0];
-        optionLabel.append(option, service);
-        serviceOptions.append(optionLabel);
-    }
+    renderServiceCheckboxes(serviceOptions, address?.services ?? []);
 
     group.append(label, instructionsLabel, serviceOptions, appButton('Fjern adresse', () => {
         if (customerAddresses.children.length === 1) {
@@ -96,6 +87,8 @@ function openCustomerEditor(id) {
         customerForm.elements.namedItem(field).value = customer?.[field] ?? '';
     }
     customerAddresses.replaceChildren();
+    byId('new-service-name').value = '';
+    byId('service-feedback').hidden = true;
     for (const address of customer?.addresses ?? [null]) {
         appendAddressEditor(address);
     }
@@ -131,6 +124,10 @@ customerForm.addEventListener('submit', event => {
 
     const editing = Boolean(editingCustomerId);
     saveChange(data => {
+        ensureServiceCatalog(data);
+        if (customer.addresses.some(address => address.services.some(service => !data.services.includes(service)))) {
+            throw new Error('En tjeneste er endret. Åpne kunden på nytt.');
+        }
         const index = data.customers.findIndex(entry => entry.id === id);
         const previous = data.customers[index];
         if (editing && !previous) {

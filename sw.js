@@ -1,17 +1,22 @@
 /* Cache the app files. Customer data stays in IndexedDB. */
-const cacheName = 'alfred-maskin-app-v5';
+const cacheName = 'alfred-maskin-app-v19';
 const appFiles = [
     './index.html',
     './manifest.webmanifest',
-    './style.css',
+    './style.css?v=19',
+    './tablet.css',
     './continuous-corners.css',
+    './calendar.css',
     './js/navigation.js',
     './js/press.js',
     './js/storage.js',
     './js/app.js',
+    './js/services.js',
     './js/kunder.js',
     './js/round.js',
+    './js/position.js',
     './js/arbeid.js',
+    './js/calendar.js',
     './js/backup.js',
     './assets/back.svg',
     './assets/calendar.svg',

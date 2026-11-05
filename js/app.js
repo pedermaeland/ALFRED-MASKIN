@@ -1,5 +1,4 @@
 /* Shared screen helpers. Each feature owns its own forms and rendering. */
-const services = ['Brøyting', 'Strøing', 'Annet arbeid'];
 const byId = id => document.getElementById(id);
 let appData;
 let saving = false;
@@ -140,7 +139,7 @@ function addressOptions(select, addresses, selected = '') {
     select.value = selected;
 }
 
-function fillServices(select, choices = services, selected = '', placeholder) {
+function fillServices(select, choices = serviceNames(), selected = '', placeholder) {
     select.replaceChildren();
     if (placeholder) {
         select.add(new Option(placeholder, ''));
@@ -154,17 +153,29 @@ function fillServices(select, choices = services, selected = '', placeholder) {
 }
 
 function renderOverview() {
-    const today = localDateTime().slice(0, 10);
-    const jobs = appData.jobs.filter(job => job.scheduled.startsWith(today) && job.status === 'pending');
+    const jobs = upcomingJobs();
     const runs = appData.runs.filter(run => run.stops.some(stop => stop.status === 'pending'));
     byId('count-plan').textContent = jobs.length;
+    byId('count-plan').closest('a').setAttribute('aria-label', `Kalender, ${jobs.length} kommende jobber`);
     byId('count-runder').textContent = appData.rounds.length;
     byId('count-kunder').textContent = appData.customers.filter(customer => !customer.archived).length;
     byId('count-logg').textContent = appData.visits.length;
 
     const active = byId('home-active');
     active.replaceChildren();
-    if (runs.length) {
+    if (appData.activeWork) {
+        const activeWork = appData.activeWork;
+        const context = workContext(appData, new URLSearchParams(activeWork.target.split('?')[1]));
+        const link = element('a', undefined, 'card continue-round');
+        link.href = activeWork.target;
+        const description = element('span', undefined, 'list-text');
+        description.append(
+            element('strong', activeWork.runningSince === null ? 'Arbeid på pause' : 'Arbeid pågår'),
+            element('span', context?.location.address ?? 'Fortsett arbeid', 'row-detail')
+        );
+        link.append(description, element('span', undefined, 'chevron'));
+        active.append(link);
+    } else if (runs.length) {
         const run = runs.at(-1);
         const next = run.stops.find(stop => stop.status === 'pending');
         const link = element('a', undefined, 'card continue-round');
@@ -175,12 +186,13 @@ function renderOverview() {
         active.append(link);
     }
 
-    showList('home-today', jobs.map(job => {
+    showList('home-today', jobs.slice(0, 3).map(job => {
         const location = job.location;
-        return card(location.customerName, `${displayClock(job.scheduled)} · ${location.address}`, [
+        return card(location.customerName, `${displayTime(job.scheduled)} · ${location.address}`, [
             appLink('Åpne jobb', workLink('job', job.id))
         ]);
-    }), 'Ingen jobber planlagt i dag.');
+    }), 'Ingen kommende jobber. Planlegg arbeid i kalenderen.');
+    byId('home-calendar-all').hidden = jobs.length <= 3;
 }
 
 function renderCurrentScreen() {
@@ -189,7 +201,10 @@ function renderCurrentScreen() {
     }
 
     const { screen, params } = selectedRoute();
-    if (screen === 'kunder') {
+    appShell.classList.toggle('calendar-layout', screen === 'plan');
+    if (screen === 'oversikt') {
+        renderOverview();
+    } else if (screen === 'kunder') {
         renderCustomers();
     } else if (screen === 'kunde') {
         openCustomerEditor(params.get('id'));
@@ -198,10 +213,9 @@ function renderCurrentScreen() {
     } else if (screen === 'runde') {
         openRoundEditor(params.get('id'));
     } else if (screen === 'plan') {
-        byId('plan-date').value = params.get('date') || localDateTime().slice(0, 10);
-        renderPlan();
+        openCalendar(params.get('date'));
     } else if (screen === 'jobb') {
-        openJobEditor(params.get('id'));
+        openJobEditor(params.get('id'), params.get('date'));
     } else if (screen === 'arbeid') {
         renderWorkScreen(params);
     } else if (screen === 'logg') {
@@ -244,7 +258,10 @@ for (const screen of appScreens) {
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         await openWorkDatabase();
-        appData = await workTransaction(importPreviousCustomers);
+        appData = await workTransaction((data, firstOpen) => {
+            importPreviousCustomers(data, firstOpen);
+            ensureServiceCatalog(data);
+        });
         for (const screen of appScreens) {
             screen.inert = false;
         }

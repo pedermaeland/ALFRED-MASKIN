@@ -1,0 +1,575 @@
+/* =========================================================
+   CALENDAR
+   Layout lives in #plan in index.html. Date and job content
+   is filled by js/calendar.js. Other screens keep their styles.
+   ========================================================= */
+
+.calendar-layout main,
+.calendar-layout .header-inner {
+  max-width: 74rem;
+}
+
+.calendar-screen {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  align-items: start;
+  column-gap: 1rem;
+}
+
+.calendar-screen > .back-link {
+  margin: 0;
+}
+
+.calendar-page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.calendar-page-heading p {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+}
+
+.calendar-add {
+  flex: none;
+  min-height: 3rem;
+  padding-inline: 1.25rem;
+  border-radius: var(--radius-pill);
+}
+
+.calendar-workspace {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  min-width: 0;
+}
+
+/* One quiet surface contains the month. Job rows stay on the open canvas. */
+.calendar-month {
+  position: sticky;
+  top: 1.25rem;
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid #2c3233;
+  border-radius: 1.5rem;
+  background: #171a1b;
+}
+
+.calendar-month-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-month-heading h2 {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.calendar-month-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.calendar-month-actions button {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-size: 0.85rem;
+}
+
+.calendar-month-actions .calendar-month-arrow {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  padding: 0;
+}
+
+.calendar-month-actions > button:first-child {
+  margin-right: 0.25rem;
+  border-color: var(--color-border);
+}
+
+/* Six rows keep the calendar stable when switching months. */
+.calendar-grid {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0.2rem;
+}
+
+.calendar-grid th {
+  height: 2rem;
+  padding: 0;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.calendar-grid td {
+  padding: 0;
+}
+
+.calendar-date {
+  display: grid;
+  grid-template-rows: 1fr 1rem;
+  align-items: center;
+  justify-items: center;
+  gap: 0.1rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  height: 3.5rem;
+  padding: 0.4rem 0.15rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 600;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calendar-date-number {
+  line-height: 1;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.calendar-date[data-outside="true"] {
+  color: #8d9494;
+}
+
+.calendar-date[aria-current="date"] {
+  border-color: var(--color-accent-light);
+  color: var(--color-accent-light);
+}
+
+.calendar-date[data-selected="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-inverse);
+}
+
+.calendar-date[data-selected="true"][aria-current="date"] {
+  border-color: var(--color-accent-light);
+}
+
+.calendar-date-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-width: 1rem;
+  color: var(--color-muted);
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.calendar-date-marker:empty {
+  visibility: hidden;
+}
+
+.calendar-date-marker[data-pending="true"] {
+  color: var(--color-accent-light);
+}
+
+.calendar-date-marker[data-pending="true"]::before {
+  content: "";
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.calendar-date[data-selected="true"] .calendar-date-marker {
+  color: var(--color-inverse);
+}
+
+.calendar-date:focus-visible {
+  outline-offset: -3px;
+}
+
+.calendar-month-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #303637;
+}
+
+.calendar-marker-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.calendar-marker-key > span {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+}
+
+.calendar-jump {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.calendar-jump input {
+  width: 10rem;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+.calendar-jump .date-readout {
+  inset-inline-start: 0.65rem;
+  font-size: 0.85rem;
+}
+
+/* Selected-day agenda. Time forms a clear vertical reading line. */
+.calendar-agenda {
+  min-width: 0;
+}
+
+.calendar-agenda-heading,
+.calendar-upcoming-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.25rem 0 1.25rem;
+}
+
+.calendar-weekday {
+  margin: 0 0 0.3rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.calendar-agenda-heading h2 {
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.calendar-day-count,
+.calendar-upcoming-heading > span {
+  flex: none;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.calendar-job-list {
+  margin-top: 0;
+}
+
+.calendar-job {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.calendar-job-time {
+  padding-top: 0.15rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.calendar-job-body {
+  min-width: 0;
+}
+
+.calendar-job-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.calendar-job-customer {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.calendar-job-status {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.calendar-job[data-status="active"] .calendar-job-status {
+  color: var(--color-accent-light);
+}
+
+.calendar-job[data-status="paused"] .calendar-job-status {
+  color: var(--color-warning-text);
+}
+
+.calendar-job[data-status="completed"] .calendar-job-status {
+  color: var(--color-success-text);
+}
+
+.calendar-job-address {
+  margin: 0.5rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.calendar-job-service {
+  margin: 0.25rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.calendar-job-note {
+  margin: 0.75rem 0 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.calendar-job-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  margin-top: 1rem;
+}
+
+.calendar-job-actions .calendar-job-open {
+  min-height: 2.75rem;
+  padding: 0.6rem 1rem;
+  border-color: #78514d;
+  border-radius: var(--radius-pill);
+  background: #281d1d;
+  font-size: 0.85rem;
+}
+
+.calendar-job-edit,
+.calendar-job-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* The next jobs remain visible even when the selected day is empty. */
+.calendar-upcoming {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.calendar-upcoming-heading h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.calendar-upcoming-link {
+  display: grid;
+  grid-template-columns: 3.75rem minmax(0, 1fr) 1rem;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 5rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.75rem;
+  color: var(--color-text);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calendar-upcoming-date,
+.calendar-upcoming-copy {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.calendar-upcoming-date strong {
+  color: var(--color-accent-light);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.calendar-upcoming-date span,
+.calendar-upcoming-copy span {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.calendar-upcoming-copy strong {
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.calendar-upcoming-arrow {
+  color: var(--color-muted);
+  font-size: 1.5rem;
+}
+
+.calendar-more {
+  width: 100%;
+  min-height: 2.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.calendar-empty {
+  display: grid;
+  align-content: center;
+  gap: 0.5rem;
+  min-height: 10rem;
+  padding: 1.5rem 0;
+  border-block: 1px solid var(--color-border);
+}
+
+.calendar-empty h3 {
+  font-size: 1.1rem;
+}
+
+.calendar-empty p,
+.calendar-no-upcoming {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.calendar-date:enabled:is(:active, .is-pressed),
+.calendar-month-actions button:enabled:is(:active, .is-pressed),
+.calendar-upcoming-link:is(:active, .is-pressed),
+.calendar-job-edit:is(:active, .is-pressed) {
+  background: var(--color-hover-surface);
+}
+
+.calendar-date[data-selected="true"]:enabled:is(:active, .is-pressed) {
+  background: var(--color-accent-hover);
+}
+
+@media (hover: hover) {
+  .calendar-date:enabled:hover,
+  .calendar-month-actions button:enabled:hover,
+  .calendar-upcoming-link:hover,
+  .calendar-job-edit:hover {
+    background: var(--color-hover-surface);
+  }
+
+  .calendar-date[data-selected="true"]:enabled:hover {
+    background: var(--color-accent-hover);
+  }
+}
+
+/* Touch layouts use the whole width for the month before the agenda. */
+@media (max-width: 55rem) {
+  .calendar-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .calendar-month {
+    position: static;
+    width: 100%;
+  }
+
+  .calendar-date {
+    height: 3.75rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .calendar-layout main {
+    padding-inline: 0.75rem;
+  }
+
+  .calendar-screen {
+    column-gap: 0.75rem;
+  }
+
+  .calendar-page-heading {
+    align-items: flex-start;
+  }
+
+  .calendar-add {
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .calendar-month {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .calendar-grid {
+    border-spacing: 0;
+  }
+
+  .calendar-date {
+    min-height: 3rem;
+    height: 3.25rem;
+    border-radius: 0.75rem;
+  }
+
+  .calendar-job {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .calendar-job-customer {
+    font-size: 1rem;
+  }
+
+  .calendar-job-actions {
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .calendar-layout main {
+    padding-inline: 0.375rem;
+  }
+}
